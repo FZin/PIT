@@ -14,17 +14,17 @@ private:
 	bool berechneSpannungFaktor(double spg);
 	bool berechneTemperaturFaktor(double temp);
 	bool berechneProzessFaktor(short prz);
-	double berechneFaktor(double value, double arr, int laenge);
+	double berechneFaktor(double value, double arr[][2], int laenge);
 	double interpolation(double value, double x1, double x2, double y1, double y2);
 public:
 	void ausgabeFaktoren();
 	double getSpannung();
 	double getTemperatur();
 	double getProzess();
-	void getFaktoren(double spgFaktor, double tmpFaktor, double przFaktor);
+	void getFaktoren(double& spgFaktor, double& tmpFaktor, double& przFaktor);
 	bool setSpannung(double spannung);
 	bool setTemperatur(double temperatur);
-	bool setProzess(double prozess);
+	bool setProzess(short prozess);
 
 };
 

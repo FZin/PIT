@@ -24,6 +24,12 @@
     <ClInclude Include="targetver.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="Faktoren.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="itiv_win_drv.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
     <ClInclude Include="Bibliothek.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
@@ -31,9 +37,6 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="GatterTyp.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Faktoren.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
@@ -44,6 +47,9 @@
     <ClCompile Include="p-it.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="Faktoren.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
     <ClCompile Include="Bibliothek.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -51,9 +57,6 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="GatterTyp.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="Faktoren.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

@@ -5,11 +5,11 @@
 #include "LaufzeitAnalysator.h"
 #include "Signal.h"
 
-class menue
+class Menue
 {
 public:
-	menue();
-	~menue();
+	Menue();
+	~Menue();
 private:
 	Faktoren meineFaktoren;
 	Bibliothek meineBibliothek;
@@ -21,8 +21,8 @@ public:
 	void start();
 private:
 	void faktorenMenue();
-	void menue::bibliothekMenue();
-	void menue::schaltwerkMenue();
-	void menue::analyse();
-	void menue::menueKopf();
+	void bibliothekMenue();
+	void schaltwerkMenue();
+	void analyse();
+	void menueKopf();
 };

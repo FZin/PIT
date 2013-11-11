@@ -82,7 +82,12 @@
     <ClInclude Include="Faktoren.h" />
     <ClInclude Include="Flipflop.h" />
     <ClInclude Include="GatterTyp.h" />
+    <ClInclude Include="GraphErzeuger.h" />
     <ClInclude Include="itiv_win_drv.h" />
+    <ClInclude Include="LaufzeitAnalysator.h" />
+    <ClInclude Include="menue.h" />
+    <ClInclude Include="Signal.h" />
+    <ClInclude Include="SignalListeErzeuger.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -91,7 +96,12 @@
     <ClCompile Include="Faktoren.cpp" />
     <ClCompile Include="Flipflop.cpp" />
     <ClCompile Include="GatterTyp.cpp" />
+    <ClCompile Include="GraphErzeuger.cpp" />
+    <ClCompile Include="LaufzeitAnalysator.cpp" />
+    <ClCompile Include="menue.cpp" />
     <ClCompile Include="p-it.cpp" />
+    <ClCompile Include="Signal.cpp" />
+    <ClCompile Include="SignalListeErzeuger.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

@@ -1,16 +1,19 @@
-#pragma once
+#ifndef FLIPFLOP_H
+#define FLIPFLOP_H
+
 #include "gattertyp.h"
+
 class Flipflop :
 	public GatterTyp
 {
-public:
-	Flipflop(void);
-	~Flipflop(void);
 private:
 	short setupTime;
 	short holdTime;
 	short lastKapazitaetClock;
 public:
+	Flipflop(void);
+	~Flipflop(void);
+	bool getIsFlipflop();
 
 	short getSetupTime(void)
 	{
@@ -26,7 +29,6 @@ public:
 	{
 		return lastKapazitaetClock;
 	}
-	bool getIsFlipflop();
 
 	void setSetupTime(short st)
 	{
@@ -43,4 +45,5 @@ public:
 		lastKapazitaetClock = lkc;
 	}
 };
+#endif
 

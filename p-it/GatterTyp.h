@@ -1,11 +1,11 @@
-#pragma once
+#ifndef GATTERTYP_H
+#define GATTERTYP_H
+
 #include<string>
 using namespace std;
+
 class GatterTyp
 {
-public:
-	GatterTyp(void);
-	~GatterTyp(void);
 protected:
 	string name;
 	double grundlaufzeit;
@@ -13,6 +13,9 @@ protected:
 	short lastKapazitaet;
 	short eingaenge;
 public:
+	GatterTyp(void);
+	~GatterTyp(void);
+	virtual bool getIsFlipflop(void);
 
 	string getName(void)
 	{
@@ -39,8 +42,6 @@ public:
 		return eingaenge;
 	}
 
-	virtual bool getIsFlipflop(void);
-
 	void setName(string n)
 	{
 		name = n;
@@ -66,4 +67,5 @@ public:
 		eingaenge = ei;
 	}
 };
+#endif
 

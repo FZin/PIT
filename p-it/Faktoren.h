@@ -1,4 +1,7 @@
+
 #pragma once
+#include "itiv_win_drv.h"
+
 class Faktoren
 {
 public:
@@ -16,6 +19,8 @@ private:
 	bool berechneProzessFaktor(short prz);
 	double berechneFaktor(double value, double arr[][2], int laenge);
 	double interpolation(double value, double x1, double x2, double y1, double y2);
+	ItivDev_Config* DevPtr;
+	
 public:
 	void ausgabeFaktoren();
 	double getSpannung();
@@ -26,5 +31,6 @@ public:
 	bool setTemperatur(double temperatur);
 	bool setProzess(short prozess);
 
+	bool InfoFromItivDevice();
 };
 

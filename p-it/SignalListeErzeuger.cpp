@@ -42,7 +42,7 @@ void SignalListeErzeuger::setPfad(string pfad) {
 	datei=pfad;
 
 	//debug
-	datei = "C:\\Users\\Stefan\\Documents\\Studium\\3.Semester\\IT-Praktikum\\csd.txt"; // C:\Users\Stefan\Documents\Studium\3.Semester\IT-Praktikum\csd.txt
+	//datei = "C:\\Users\\Stefan\\Documents\\Studium\\3.Semester\\IT-Praktikum\\csd.txt"; // C:\Users\Stefan\Documents\Studium\3.Semester\IT-Praktikum\csd.txt
 	
 
 	//textdatei in string datei speichern

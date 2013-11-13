@@ -137,3 +137,43 @@ bool Faktoren::setProzess(short prozess)
 	this->prozess = prozess;
 	return true;
 }
+
+bool Faktoren::InfoFromItivDevice()
+{
+	DevPtr = ItivDev_GetConfigByName("Global\\ITIV_WindowsDevice");
+	double neuerWert;
+	int neuerInt;
+	bool err;
+	for (int i = 1; i < 4; i++){
+		while (!err){
+			err = false;
+			*((int*)DevPtr->BaseAddress + CTRL_REG) = 0x0;
+			while (!(*(int*)DevPtr->BaseAddress + STAT_REG == 0x01000000));
+			*((int*)DevPtr->BaseAddress + CTRL_REG) = i;
+			*((int*)DevPtr->BaseAddress + CTRL_REG) = 0x100 + i;
+			while (*(int*)DevPtr->BaseAddress + STAT_REG == 0x100);
+			if (*(int*)DevPtr->BaseAddress + STAT_REG == 0x10000){
+				switch (i)
+				{
+				case 1:
+					neuerWert = *((double*)DevPtr->BaseAddress + DATA_REG);
+					err = (setSpannung(neuerWert));
+					break;
+				case 2:
+					neuerInt = *((int*)DevPtr->BaseAddress + DATA_REG);
+					err = (setTemperatur(neuerInt));
+					break;
+				case 3:
+					neuerInt = *((int*)DevPtr->BaseAddress + DATA_REG);
+					err = (setProzess(neuerInt));
+				default:
+					break;
+				}
+			}
+		}
+	}
+	
+	
+	
+	return false;
+}

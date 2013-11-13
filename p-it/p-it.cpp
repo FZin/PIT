@@ -5,16 +5,13 @@
 #include "Faktoren.h"
 #include <iostream>
 
+#include "Menue.h"
+
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	int i;
-	Faktoren F;
-	F.setProzess(1);
-	F.setSpannung(1.23);
-	F.setTemperatur(45);
-	F.ausgabeFaktoren();
-	std::cin >> i;
+	Menue meinMenue;
+	meinMenue.start();
 	return 0;
 }
 

@@ -6,17 +6,20 @@
 #include <sstream>
 
 #include "SignalListeErzeuger.h"
-//#include "LaufzeitAnalysator.h"
+#include "LaufzeitAnalysator.h"
+#include "Bibliothek.h"
+#include "GraphErzeuger.h"
+#include "Faktoren.h"
 
 using namespace std;
 
 class Menue {
 private:
-	//Faktoren meineFaktoren;
-	//Bibliothek meineBibliothek;
+	Faktoren meineFaktoren;
+	Bibliothek meineBibliothek;
 	SignalListeErzeuger meinSignalListeErzeuger;
-	//GraphErzeuger meinGraphErzeuger;
-	//LaufzeitAnalysator meinLaufzeitanalysator;
+	GraphErzeuger meinGraphErzeuger;
+	LaufzeitAnalysator meinLaufzeitanalysator;
 
 
 

@@ -34,9 +34,10 @@ GatterTyp*  Bibliothek::getBibElement(string typ)
 			return bibElemente.at(i);
 		}
 		else{
-			return bibElemente.at(0); //falls kein typ gefunden wird zeiger auf erstes element zurückgeben
+			return bibElemente.at(0); //falls kein typ mit eingegebenem Namen gefunden wurde zeiger auf erstes element zurückgeben
 		}
 	}
+	return NULL;
 }
 
 
@@ -116,11 +117,6 @@ void Bibliothek::dateiAuswerten(void)
 					string zahl = zeile.substr(3);
 					short lastKapazitaetClockFilter = atoi(zahl.c_str());
 					tmp->setLastKapazitaetClock(lastKapazitaetClockFilter);
-				}
-				if (zeile.substr(0,2) == "et") {                    //überschreibt D-Eingang! was tun?
-					string zahl = zeile.substr(3);
-					short eingaengeFilter = atoi(zahl.c_str());
-					tmp->setEingaenge(eingaengeFilter);
 				}
 				if (zeile.substr(0,4) == "tpdt") {
 					string zahl = zeile.substr(5);

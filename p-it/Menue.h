@@ -1,28 +1,38 @@
-#include "Faktoren.h"
-#include "Bibliothek.h"
-#include "SignalListeErzeuger.h"
-#include "GraphErzeuger.h"
-#include "LaufzeitAnalysator.h"
-#include "Signal.h"
+#ifndef MENUE_H
+#define MENUE_H
 
-class Menue
-{
-public:
-	Menue();
-	~Menue();
+#include <iostream>
+#include <string>
+#include <sstream>
+
+#include "SignalListeErzeuger.h"
+//#include "LaufzeitAnalysator.h"
+
+using namespace std;
+
+class Menue {
 private:
-	Faktoren meineFaktoren;
-	Bibliothek meineBibliothek;
+	//Faktoren meineFaktoren;
+	//Bibliothek meineBibliothek;
 	SignalListeErzeuger meinSignalListeErzeuger;
-	GraphErzeuger meinGraphErzeuger;
-	LaufzeitAnalysator meinLaufzeitAnalysator;
-	Signal* signale;
-public:
-	void start();
-private:
+	//GraphErzeuger meinGraphErzeuger;
+	//LaufzeitAnalysator meinLaufzeitanalysator;
+
+
+
+	//Signal* signale;
+	
 	void faktorenMenue();
 	void bibliothekMenue();
 	void schaltwerkMenue();
 	void analyse();
+	
+
+public:
 	void menueKopf();
+	void start();
+	//Menue() {};
+	//~Menue();
+
 };
+#endif

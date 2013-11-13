@@ -153,12 +153,12 @@ bool Bibliothek::pfadEinlesen(string pfad)
 	ifstream bib(pfad);
 	if(!bib) {
 		openError();
+		bib.close();
 		return false;
 	}
 	else{
 		datei = pfad;
+		bib.close();
 		return true;
 	}
-	bib.close();
-
 }

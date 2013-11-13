@@ -7,7 +7,7 @@
     </Filter>
     <Filter Include="Headerdateien">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
     <Filter Include="Ressourcendateien">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
@@ -15,22 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="stdafx.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="targetver.h">
+    <ClInclude Include="Bibliothek.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Faktoren.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="itiv_win_drv.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Bibliothek.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Flipflop.h">
@@ -39,13 +27,16 @@
     <ClInclude Include="GatterTyp.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="menue.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="GraphErzeuger.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="itiv_win_drv.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
     <ClInclude Include="LaufzeitAnalysator.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Menue.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Signal.h">
@@ -54,18 +45,15 @@
     <ClInclude Include="SignalListeErzeuger.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="ListenElement.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="p-it.cpp">
+    <ClCompile Include="Bibliothek.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="Faktoren.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="Bibliothek.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="Flipflop.cpp">
@@ -74,13 +62,16 @@
     <ClCompile Include="GatterTyp.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="menue.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="GraphErzeuger.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="LaufzeitAnalysator.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Menue.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="p-it.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="Signal.cpp">

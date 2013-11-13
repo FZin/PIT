@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include "Faktoren.h"
 #include <iostream>
 //#include <iomanip>

@@ -143,10 +143,6 @@ void Menue::bibliothekMenue(){
 	cin>>eingabe;
 	string pfad;
 	bool erfolgreich;
-<<<<<<< HEAD
-=======
-
->>>>>>> dcdd0158cadcb4d9e87d594b2f5f1453ea144034
 	switch(eingabe){
 	case 1:
 		cout<<"Bitte geben Sie den gewuenschten Pfad ein:"<<endl;
@@ -170,7 +166,6 @@ void Menue::bibliothekMenue(){
 	case 3:
 		start();
 		break;
-
 	default:
 		bibliothekMenue();
 		break;

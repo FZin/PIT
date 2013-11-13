@@ -23,7 +23,7 @@ void Menue::start() {
 	cout<<"Temperatur [Grad Celsius] : "<</*meineFaktoren.getTemperatur()<<*/endl;
 	cout<<"Prozess (1=slow, 2=typical, 3=fast) : "<</*meineFaktoren.getProzess()<<*/endl<<endl;
 	cout<<"(2) Bibliothek"<<endl;
-	cout<<"Pfad zur Bibliotheksdatei: "<</*meineBibliothek.getPfad()<<*/endl<<endl;
+	cout<<"Pfad zur Bibliotheksdatei: "<< meineBibliothek.getPfad()<< endl<<endl;
 	cout<<"(3) Schaltwerk"<<endl;
 	cout<<"Pfad zur Schaltwerksdatei: "<<meinSignalListeErzeuger.getdatei()<<endl<<endl;
 	cout<<"(4) Analyse starten"<<endl<<endl;
@@ -131,7 +131,7 @@ void Menue::bibliothekMenue(){
 	system("cls");
 	menueKopf();
 	cout<<"Untermenue Bibliothek"<<endl<<endl;
-	cout<<"(1) Pfad zur Bibliotheksdatei: "<</*meineBibliothek.getPfad()<<*/endl<<endl;
+	cout<<"(1) Pfad zur Bibliotheksdatei: "<< meineBibliothek.getPfad() <<endl<<endl;
 	cout<<"(2) Ausgabe der Bibliotheksdatei "<<endl<<endl;
 	cout<<"(3) Hauptmenue"<<endl<<endl<<endl;
 
@@ -149,17 +149,17 @@ void Menue::bibliothekMenue(){
 		cin.clear();
 		cin.sync();
 		cin>>pfad;
-		//bool erfolgreich = meineBibliothek.pfadEinlesen(pfad);
-		//if(erfolgreich == false ) 
-		//{ cout<<"Der Pfad konnte nicht eingelesen werden"<<endl;
-		//  cout<<"Enter druecken zum fortfahren"<<endl;
-		//	cin.clear();
-		//  cin.sync();
-		//}
+		bool erfolgreich = meineBibliothek.pfadEinlesen(pfad);
+		if(erfolgreich == false ) { 
+			cout<<"Der Pfad konnte nicht eingelesen werden"<<endl;
+		    cout<<"Enter druecken zum fortfahren"<<endl;
+		    cin.clear();
+		    cin.sync();
+		}
 		bibliothekMenue();
 		break;
 	case 2:
-		//meineBibliothek.dateiAusgabe();
+		meineBibliothek.dateiAusgabe();
 		system("pause");
 		bibliothekMenue();
 		break;

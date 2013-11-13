@@ -142,6 +142,7 @@ void Menue::bibliothekMenue(){
 	cin.sync();
 	cin>>eingabe;
 	string pfad;
+	bool erfolgreich;
 
 	switch(eingabe){
 	case 1:
@@ -149,7 +150,7 @@ void Menue::bibliothekMenue(){
 		cin.clear();
 		cin.sync();
 		cin>>pfad;
-		bool erfolgreich = meineBibliothek.pfadEinlesen(pfad);
+		erfolgreich = meineBibliothek.pfadEinlesen(pfad);
 		if(erfolgreich == false ) { 
 			cout<<"Der Pfad konnte nicht eingelesen werden"<<endl;
 		    cout<<"Enter druecken zum fortfahren"<<endl;

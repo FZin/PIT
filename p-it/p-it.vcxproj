@@ -72,6 +72,7 @@
     <ClInclude Include="LaufzeitAnalysator.h" />
     <ClInclude Include="ListenElement.h" />
     <ClInclude Include="Menue.h" />
+    <ClInclude Include="SchaltwerkElement.h" />
     <ClInclude Include="Signal.h" />
     <ClInclude Include="SignalListeErzeuger.h" />
   </ItemGroup>
@@ -82,8 +83,10 @@
     <ClCompile Include="GatterTyp.cpp" />
     <ClCompile Include="GraphErzeuger.cpp" />
     <ClCompile Include="LaufzeitAnalysator.cpp" />
+    <ClCompile Include="ListenElement.cpp" />
     <ClCompile Include="Menue.cpp" />
     <ClCompile Include="p-it.cpp" />
+    <ClCompile Include="SchaltwerkElement.cpp" />
     <ClCompile Include="Signal.cpp" />
     <ClCompile Include="SignalListeErzeuger.cpp" />
   </ItemGroup>

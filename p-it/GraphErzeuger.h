@@ -5,6 +5,7 @@
 
 #include "Bibliothek.h"
 #include "ListenElement.h"
+#include "Signal.h"
 
 
 class GraphErzeuger
@@ -12,6 +13,9 @@ class GraphErzeuger
 private:
 	Bibliothek* bibliothek;
 	ListenElement* startElement;
+	ListenElement* endElement;
+	Signal* signale;
+	short anzahlSignale;
 
 
 public:

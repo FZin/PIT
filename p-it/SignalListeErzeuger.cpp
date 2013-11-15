@@ -297,7 +297,15 @@ void SignalListeErzeuger::setPfad(string pfad) {
 	
 		//}
 
-
+		if(error == true) {
+			delete[] signale;
+			signale = NULL;
+			anzahlSignale = 0;
+			frequenz = 0;
+			cout<<endl<<"Fehler: Die Datei ist Fehlerhaft!"<<endl;
+			system("pause");
+	
+		}
 
 
 

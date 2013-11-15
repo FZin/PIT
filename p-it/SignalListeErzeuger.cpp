@@ -46,7 +46,7 @@ void SignalListeErzeuger::setPfad(string pfad) {
 	
 
 	//textdatei in string datei speichern
-	
+	bool error = false;
 	ifstream myfile;
 	myfile.open(datei);
 
@@ -157,7 +157,12 @@ void SignalListeErzeuger::setPfad(string pfad) {
 		while(pos < temp.find(";",posInput)) {
 		
 			int nummer = atoi(temp.substr(pos + 1).c_str());
-			signale[nummer-1].setSignalTyp(eingang);
+			if(nummer <= anzahlSignale) {
+				signale[nummer-1].setSignalTyp(eingang);
+			} else {
+				error = true;
+			}
+			
 			pos = temp.find("s",pos+1);
 		}
 
@@ -167,7 +172,12 @@ void SignalListeErzeuger::setPfad(string pfad) {
 		while(pos < temp.find(";",posOutput)) {
 		
 			int nummer = atoi(temp.substr(pos + 1).c_str());
-			signale[nummer-1].setSignalTyp(ausgang);
+			if(nummer <= anzahlSignale) {
+				signale[nummer-1].setSignalTyp(ausgang);
+			} else {
+				error = true;
+			}
+			
 			pos = temp.find("s",pos+1);
 		}
 	
@@ -178,7 +188,12 @@ void SignalListeErzeuger::setPfad(string pfad) {
 		while(pos < temp.find(";",posSignals)) {
 		
 			int nummer = atoi(temp.substr(pos + 1).c_str());
-			signale[nummer-1].setSignalTyp(intern);
+			if(nummer <= anzahlSignale) {
+				signale[nummer-1].setSignalTyp(intern);
+			} else {
+				error = true;
+			}
+			
 			pos = temp.find("s",pos+1);
 		}
 
@@ -212,9 +227,13 @@ void SignalListeErzeuger::setPfad(string pfad) {
 				int nummer = atoi( temp.substr(posTemp+1).c_str() );
 				string ziel = temp.substr(pos, 4);
 			
+				if(nummer <= anzahlSignale) {
+					signale[nummer-1].zielHinzufuegen(ziel, (signale[nummer-1].getAnzahlZiele()) + 1 );
+				} else {
+					error = true;
+				}
 
-
-				signale[nummer-1].zielHinzufuegen(ziel, (signale[nummer-1].getAnzahlZiele()) + 1 );
+				
 				posTemp = temp.find("s", posTemp + 1 );
 
 				//wenn letztes Ziel abgearbeitet
@@ -224,12 +243,26 @@ void SignalListeErzeuger::setPfad(string pfad) {
 					nummer = atoi( temp.substr(posTemp+1).c_str() );
 					ziel = temp.substr(pos, 4);
 					//auf Kurzschluss prüfen
-					if(signale[nummer-1].getQuelle() != "NULL") {
+					if(nummer <= anzahlSignale) {
+						if(signale[nummer-1].getQuelle() != "NULL") {
 						kurzschluss=true;
+						}
+					} else {
+						error = true;
 					}
-					signale[nummer-1].setQuelle(ziel);
-					ziel = temp.substr( temp.find(":",pos) + 1 , temp.find("(",pos)-temp.find(":",pos) - 1 );
-					signale[nummer-1].setQuellenTyp(ziel);
+
+					
+					if(nummer <= anzahlSignale) {
+						signale[nummer-1].setQuelle(ziel);
+						ziel = temp.substr( temp.find(":",pos) + 1 , temp.find("(",pos)-temp.find(":",pos) - 1 );
+						signale[nummer-1].setQuellenTyp(ziel);
+
+
+					} else {
+						error = true;
+					}
+
+					
 
 
 					//debug

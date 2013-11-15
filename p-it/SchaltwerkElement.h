@@ -32,7 +32,7 @@ public:
 	bool getIsEingangsElement() {return isEingangsElement; };
 	bool getIsAusgangsElement() { return isAusgangsElement; };
 	void setName(string n) { name = n; };
-	void nachfolgerHinzufuegen( SchaltwerkElement schaltwerkElement, int pos );
+	void nachfolgerHinzufuegen( SchaltwerkElement* schaltwerkElement, int pos );
 	void setAnzahlNachfolger(int anzahlN) { anzahlNachfolger= anzahlN; };
 	void setAnzahlEingangssignale(short anzahlE) {anzahlEingangssignale = anzahlE;};
 	void setIsEingangsElement( bool isEingangsEl) { isEingangsElement = isEingangsEl; };

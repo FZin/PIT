@@ -13,7 +13,7 @@ private:
 	string name;
 	GatterTyp* typ;
 	double laufzeitEinzelGatter;
-	SchaltwerkElement* nachfolgerElement;
+	SchaltwerkElement** nachfolgerElement;
 	int anzahlNachfolger;
 	bool isEingangsElement;
 	bool isAusgangsElement;
@@ -21,7 +21,7 @@ private:
 
 
 public:
-	SchaltwerkElement();
+	SchaltwerkElement(GatterTyp* gTyp);
 	~SchaltwerkElement();
 	string getName() { return name;};
 	GatterTyp* getTyp() {return typ;};

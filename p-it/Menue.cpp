@@ -236,5 +236,5 @@ void Menue::analyse(){
 	//meinGraphErzeuger.graphBau(&meineBibliothek, meinSignalListeErzeuger.getSignale() , meinSignalListeErzeuger.getAnzahlSignale());
 	//system("pause");
 	//start();
-	//system("cls");
+	
 };

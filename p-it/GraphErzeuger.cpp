@@ -92,6 +92,16 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 	}
 
 
+	//Graph aufbauen
+
+	for(int i = 0; i<anzahlSignale; i++) {
+
+
+
+
+	}
+
+
 
 
 };
@@ -108,7 +118,7 @@ void GraphErzeuger::ausgabeGraphenstruktur() {
 
 		cout<<"Gattername : "<< test->getSchaltwerkElement()->getName()<<endl;
 		system("pause");
-		cout<<"Gattertyp : "<< test->getSchaltwerkElement()->getTyp()/*->getName() */<<endl;
+		cout<<"Gattertyp : "<< test->getSchaltwerkElement()->getTyp() /*->getName() */<<endl;
 		
 		//debug
 		system("pause");

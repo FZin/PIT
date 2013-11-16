@@ -213,7 +213,7 @@ void Menue::schaltwerkMenue(){
 		schaltwerkMenue();
 		break;
 	case 4:
-		
+		meinGraphErzeuger.ausgabeGraphenstruktur();
 		system("pause");
 		schaltwerkMenue();
 		break;
@@ -230,5 +230,11 @@ void Menue::schaltwerkMenue(){
 void Menue::analyse(){
 	
 
+	//debug
+	//meinSignalListeErzeuger.setPfad("C:\\Users\\Stefan\\Documents\\Studium\\3.Semester\\IT-Praktikum\\csd.txt");
+	//bool test = meineBibliothek.pfadEinlesen("C:\\Users\\Stefan\\Documents\\Studium\\3.Semester\\IT-Praktikum\\bib.txt");
+	//meinGraphErzeuger.graphBau(&meineBibliothek, meinSignalListeErzeuger.getSignale() , meinSignalListeErzeuger.getAnzahlSignale());
+	//system("pause");
+	//start();
 	//system("cls");
 };

@@ -26,7 +26,7 @@ public:
 	string getName() { return name;};
 	GatterTyp* getTyp() {return typ;};
 	double getLaufzeitEinzelgatter() {return laufzeitEinzelGatter; };
-	SchaltwerkElement* getNachfolgerElement(int pos);
+	SchaltwerkElement* getNachfolger(int pos);
 	int getAnzahlNachfolger() {return anzahlNachfolger;};
 	short getAnzahlEingangssignale() {return anzahlEingangssignale;};
 	bool getIsEingangsElement() {return isEingangsElement; };

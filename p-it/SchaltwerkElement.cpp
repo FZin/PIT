@@ -20,7 +20,7 @@ SchaltwerkElement::~SchaltwerkElement() {
 
 };
 
-SchaltwerkElement* SchaltwerkElement::getNachfolgerElement(int pos) {
+SchaltwerkElement* SchaltwerkElement::getNachfolger(int pos) {
 
 	SchaltwerkElement* temp = nachfolgerElement[pos-1];
 

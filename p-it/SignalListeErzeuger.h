@@ -26,6 +26,8 @@ public:
 	string getdatei() {return datei; };
 	SignalListeErzeuger();
 	~SignalListeErzeuger();
+	Signal* getSignale() {return signale;};
+	short getAnzahlSignale(){ return anzahlSignale;};
 
 };
 

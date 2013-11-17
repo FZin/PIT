@@ -32,11 +32,8 @@ GatterTyp*  Bibliothek::getBibElement(string typ)
 		if (bibElemente.at(i)->getName() == typ) {
 			return bibElemente.at(i);
 		}
-		else{
-			return bibElemente.at(0);  //Falls kein typ mit eingegebenem Namen gefunden wurde, Zeiger auf erstes element zurückgeben
-		}
-	}
-	return NULL; //Falls keine Elemente vorhanden, Rückgabe "NULL-Zeiger"
+	}	
+	return bibElemente.at(0);  //Falls kein typ mit eingegebenem Namen gefunden wurde, Zeiger auf erstes element zurückgeben
 }
 
 //Ausgabe der einzulesenden Datei auf dem Bildschirm

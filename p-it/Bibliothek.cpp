@@ -33,7 +33,7 @@ GatterTyp*  Bibliothek::getBibElement(string typ)
 			return bibElemente.at(i);
 		}
 	}	
-	return bibElemente.at(0);  //Falls kein typ mit eingegebenem Namen gefunden wurde, Zeiger auf erstes element zurückgeben
+	return NULL; //Falls kein typ mit eingegebenem Namen gefunden wurde, NULL-Zeiger zurückgeben
 }
 
 //Ausgabe der einzulesenden Datei auf dem Bildschirm

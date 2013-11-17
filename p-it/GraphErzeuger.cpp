@@ -181,6 +181,7 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 			if( anzahlVorgaenger != lauf->getSchaltwerkElement()->getTyp()->getEingaenge() ) {
 
 				error = true;
+				cout<<lauf->getSchaltwerkElement()->getName()<<endl;
 				cout<<"Anzahl Eingaenge laut Bibliothek : "<< lauf->getSchaltwerkElement()->getTyp()->getEingaenge()<<endl;
 				cout<<"Anzahl Eingaenge laut Schaltwerk : "<<anzahlVorgaenger<<endl;
 
@@ -220,9 +221,6 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 		}
 		cout<<endl<<"Es entstand ein Fehler beim erzeugen des Graphen."<<endl;
 		system("pause");
-
-		
-
 	}
 
 
@@ -242,7 +240,7 @@ void GraphErzeuger::ausgabeGraphenstruktur() {
 
 		cout<<"Gattername : "<< test->getSchaltwerkElement()->getName()<<endl;
 		
-		cout<<"Gattertyp : "<< test->getSchaltwerkElement()->getTyp() /*->getName() */<<endl;
+		cout<<"Gattertyp : "<< test->getSchaltwerkElement()->getTyp()->getName()<<endl;
 		
 		cout<<"-->Das Gatter hat "<< test->getSchaltwerkElement()->getAnzahlNachfolger() <<" Ziele"<<endl;
 

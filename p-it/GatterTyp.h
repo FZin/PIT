@@ -17,6 +17,7 @@ public:
 	~GatterTyp(void);
 	virtual bool getIsFlipflop(void);
 
+	//Inline get- und set-Methoden
 	string getName(void)
 	{
 		return name;

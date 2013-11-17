@@ -3,7 +3,8 @@
 
 #include "gattertyp.h"
 
-class Flipflop :
+//Initialisierung der Klasse Flipflop als Kindklasse von Klasse GatterTyp
+class Flipflop :        
 	public GatterTyp
 {
 private:
@@ -15,6 +16,7 @@ public:
 	~Flipflop(void);
 	bool getIsFlipflop();
 
+	//Inline get- und set-Methoden
 	short getSetupTime(void)
 	{
 		return setupTime;

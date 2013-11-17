@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿Der Buildvorgang wurde am 17.11.2013 16:13:30 gestartet.
      1>Projekt "C:\Users\Stefan\Documents\Studium\3.Semester\IT-Praktikum\PIT\p-it\p-it.vcxproj" auf Knoten "2", Build Ziel(e).
      1>InitializeBuildStatus:
@@ -7,8 +8,29 @@
          Menue.cpp
          GraphErzeuger.cpp
          Code wird generiert...
+=======
+﻿Der Buildvorgang wurde am 17.11.2013 15:49:41 gestartet.
+     1>Projekt "C:\Users\dennis\Desktop\irgendwie\p-it\p-it.vcxproj" auf Knoten "2", Build Ziel(e).
+     1>InitializeBuildStatus:
+         "Debug\p-it.unsuccessfulbuild" wird erstellt, da "AlwaysCreate" angegeben wurde.
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Bibliothek.cpp Flipflop.cpp GatterTyp.cpp GraphErzeuger.cpp LaufzeitAnalysator.cpp ListenElement.cpp Menue.cpp SchaltwerkElement.cpp "p-it.cpp"
+         Menue.cpp
+         LaufzeitAnalysator.cpp
+         GraphErzeuger.cpp
+         GatterTyp.cpp
+         Code wird generiert...
+         Kompilieren...
+         p-it.cpp
+         Flipflop.cpp
+         Bibliothek.cpp
+         Code wird generiert...
+         Überspringen... (keine relevanten Änderungen gefunden)
+         SchaltwerkElement.cpp
+         ListenElement.cpp
+>>>>>>> eb3f988f286f6c5352750140ca0e1289efa3f4b3
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Stefan\Documents\Studium\3.Semester\IT-Praktikum\PIT\Debug\p-it.exe" /INCREMENTAL /NOLOGO itiv_win_drv.obj kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Stefan\Documents\Studium\3.Semester\IT-Praktikum\PIT\Debug\p-it.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Stefan\Documents\Studium\3.Semester\IT-Praktikum\PIT\Debug\p-it.lib" /MACHINE:X86 Debug\Bibliothek.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\dennis\Desktop\irgendwie\Debug\p-it.exe" /INCREMENTAL /NOLOGO itiv_win_drv.obj kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\dennis\Desktop\irgendwie\Debug\p-it.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\dennis\Desktop\irgendwie\Debug\p-it.lib" /MACHINE:X86 Debug\Bibliothek.obj
          Debug\Faktoren.obj
          Debug\Flipflop.obj
          Debug\GatterTyp.obj
@@ -20,12 +42,16 @@
          Debug\SchaltwerkElement.obj
          Debug\Signal.obj
          Debug\SignalListeErzeuger.obj
-         p-it.vcxproj -> C:\Users\Stefan\Documents\Studium\3.Semester\IT-Praktikum\PIT\Debug\p-it.exe
+         p-it.vcxproj -> C:\Users\dennis\Desktop\irgendwie\Debug\p-it.exe
        FinalizeBuildStatus:
          Die Datei "Debug\p-it.unsuccessfulbuild" wird gelöscht.
          Aktualisieren des Timestamps von "Debug\p-it.lastbuildstate".
-     1>Die Erstellung des Projekts "C:\Users\Stefan\Documents\Studium\3.Semester\IT-Praktikum\PIT\p-it\p-it.vcxproj" ist abgeschlossen, Build Ziel(e).
+     1>Die Erstellung des Projekts "C:\Users\dennis\Desktop\irgendwie\p-it\p-it.vcxproj" ist abgeschlossen, Build Ziel(e).
 
 Build erfolgreich.
 
+<<<<<<< HEAD
 Verstrichene Zeit 00:00:03.64
+=======
+Verstrichene Zeit 00:00:04.54
+>>>>>>> eb3f988f286f6c5352750140ca0e1289efa3f4b3

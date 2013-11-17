@@ -155,6 +155,8 @@ void Menue::bibliothekMenue(){
 		    cout<<"Enter druecken zum fortfahren"<<endl;
 		    cin.clear();
 		    cin.sync();
+		} else {
+			meineBibliothek.dateiAuswerten();
 		}
 		bibliothekMenue();
 		break;
@@ -231,10 +233,10 @@ void Menue::analyse(){
 	
 
 	//debug
-	//meinSignalListeErzeuger.setPfad("C:\\Users\\Stefan\\Documents\\Studium\\3.Semester\\IT-Praktikum\\csd.txt");
-	//bool test = meineBibliothek.pfadEinlesen("C:\\Users\\Stefan\\Documents\\Studium\\3.Semester\\IT-Praktikum\\bib.txt");
-	//meinGraphErzeuger.graphBau(&meineBibliothek, meinSignalListeErzeuger.getSignale() , meinSignalListeErzeuger.getAnzahlSignale());
-	//system("pause");
-	//start();
+	meinGraphErzeuger.graphBau(&meineBibliothek, meinSignalListeErzeuger.getSignale() , meinSignalListeErzeuger.getAnzahlSignale());
+	system("pause");
+	
+	
+	start();
 	
 };

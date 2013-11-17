@@ -60,7 +60,7 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 			GatterTyp* gTyp = bibliothek->getBibElement(signale[i].getQuellenTyp() ); 
 
 			//debug
-			cout<<gTyp<<endl;
+			cout<<gTyp->getName()<<" "<<gTyp<<endl;
 
 
 			SchaltwerkElement* tempSchaltwerkElement = new SchaltwerkElement(gTyp) ;
@@ -163,27 +163,31 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 		while(lauf != NULL) {
 
 			short anzahlVorgaenger = 0;
-			ListenElement* temp =startElement;
+			
 
-			while(temp != NULL) {
+			
 
-				for(int i = 1; i <= temp->getSchaltwerkElement()->getAnzahlNachfolger() ; i++ ) {
-					if(temp->getSchaltwerkElement()->getNachfolger(i) == lauf->getSchaltwerkElement() ) {
-						anzahlVorgaenger++;
+				for( int i = 0; i < anzahlSignale ; i++) {
+					for(int j = 1; j <= signale[i].getAnzahlZiele(); j++) {
+						if(signale[i].getZiel(j) == lauf->getSchaltwerkElement()->getName() ) {
+							anzahlVorgaenger++;
+						}
+
 					}
 
 				}
 
 
-				temp = temp->getNextListenElement();
-			}
 
+
+
+			
 			if( anzahlVorgaenger != lauf->getSchaltwerkElement()->getTyp()->getEingaenge() ) {
 
 				error = true;
 				cout<<lauf->getSchaltwerkElement()->getName()<<endl;
 				cout<<"Anzahl Eingaenge laut Bibliothek : "<< lauf->getSchaltwerkElement()->getTyp()->getEingaenge()<<endl;
-				cout<<"Anzahl Eingaenge laut Schaltwerk : "<<anzahlVorgaenger<<endl;
+				cout<<"Anzahl Eingaenge laut Schaltwerk : "<<anzahlVorgaenger<<endl<<endl;
 
 			}
 

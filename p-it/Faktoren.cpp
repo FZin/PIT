@@ -13,6 +13,7 @@ Faktoren::Faktoren()
 	spannungFaktor = 0.0;
 	temperaturFaktor = 0.0;
 	prozessFaktor = 0.0;
+	debugVar = 0.0;
 }
 
 

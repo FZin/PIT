@@ -75,7 +75,9 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 			if (signale[i].getSignalTyp() == ausgang ) {
 				temp->getSchaltwerkElement()->setIsAusgangsElement(true);
 			}
-			temp->getSchaltwerkElement()->setAnzahlNachfolger(signale[i].getAnzahlZiele() );
+
+			//
+			//temp->getSchaltwerkElement()->setAnzahlNachfolger(signale[i].getAnzahlZiele() );
 
 			//set isEingang
 			for(int j = 0; j < anzahlSignale; j++ ) {
@@ -123,28 +125,25 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 
 			for(int j = 1; j <= signale[i].getAnzahlZiele(); j++) {
 
-				ListenElement* ziel;
+				ListenElement* ziel = startElement;
 
-				
+				while(ziel != NULL && (ziel->getSchaltwerkElement()->getName() != signale[i].getZiel(j)   )) {
+					ziel = ziel->getNextListenElement();
+				}
 
 
+				if(ziel != NULL) {
+					temp->getSchaltwerkElement()->nachfolgerHinzufuegen(ziel->getSchaltwerkElement(), temp->getSchaltwerkElement()->getAnzahlNachfolger() + 1);
+				} else {
+					error = true;
 
-
-
+				}
 			}
-
-
 		}
-
-		
-
-
-
-
-
-
-
 	}
+
+
+
 
 	//wenn ein fehler aufgetreten ist
 	
@@ -189,9 +188,15 @@ void GraphErzeuger::ausgabeGraphenstruktur() {
 		
 		cout<<"Gattertyp : "<< test->getSchaltwerkElement()->getTyp() /*->getName() */<<endl;
 		
-		
+		cout<<"-->Das Gatter hat "<< test->getSchaltwerkElement()->getAnzahlNachfolger() <<" Ziele"<<endl;
 
+		cout<<"Angeschlossene Gatter : ";
 
+		for(int i = 1; i <= test->getSchaltwerkElement()->getAnzahlNachfolger() ; i++ ) {
+			cout<< test->getSchaltwerkElement()->getNachfolger(i)->getName()  <<" ";
+		}
+
+		cout<<endl<<endl;
 
 		test = test->getNextListenElement();
 	}

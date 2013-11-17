@@ -6,21 +6,20 @@ LaufzeitAnalysator::LaufzeitAnalysator()
 {
 }
 
+LaufzeitAnalysator::~LaufzeitAnalysator()
+{
+}
+
 void LaufzeitAnalysator::init(Faktoren* f, ListenElement* s)
 {
 	faktoren = f;
 	startElement = s;
 }
 
-LaufzeitAnalysator::~LaufzeitAnalysator()
-{
-}
-
 void LaufzeitAnalysator::berechnungLaufzeitEinzelgatter(void) {
 	short c_last = 0;
-	ListenElement* node = NULL;
-	for(node = startElement; node != NULL; node = node->getNextListenElement()){ // zeiger auf anfang verkettete liste, läuft durch bis ende
-		int nachfolger = node->getSchaltwerkElement()->getAnzahlNachfolger(); //methode aus schaltwerkelemnt um anzahl von folgegatter zu bekommen
+	for(ListenElement* node = startElement; node != NULL; node = node->getNextListenElement()){   // zeiger auf anfang verkettete liste, läuft durch bis ende
+		int nachfolger = node->getSchaltwerkElement()->getAnzahlNachfolger();     //methode aus schaltwerkelemnt um anzahl von folgegatter zu bekommen
 		if (nachfolger !=0){ //überprüfen ob letztes gatter vorliegt
 			for( int i=0; i<nachfolger; i++){ // berechnung von C_last für jeweilige Folgegatter, unterscheidung zw. flipflop und gatter
 				GatterTyp* element = node->getSchaltwerkElement()->getNachfolger(i)->getTyp();
@@ -35,9 +34,7 @@ void LaufzeitAnalysator::berechnungLaufzeitEinzelgatter(void) {
 		double spgFaktor;
 		double tmpFaktor;
 		double przFaktor;
-		faktoren->getFaktoren(spgFaktor, tmpFaktor,przFaktor);  // Kv, Kp, Kt aus klasse faktoren hol
-		SchaltwerkElement* p = NULL;
-		GatterTyp* y = NULL;
-		p->setLaufzeitEinzelgatter((y->getGrundlaufzeit() + y->getLastFaktor() * c_last) * spgFaktor * tmpFaktor * przFaktor); //formel umsetzen
+		faktoren->getFaktoren(spgFaktor, tmpFaktor, przFaktor);  // Kv, Kp, Kt aus klasse faktoren holen
+		startElement->getSchaltwerkElement()->setLaufzeitEinzelgatter((startElement->getSchaltwerkElement()->getTyp()->getGrundlaufzeit() + startElement->getSchaltwerkElement()->getTyp()->getLastFaktor() * c_last / 1000) * spgFaktor * tmpFaktor * przFaktor); //formel umsetzen
 	}
 }

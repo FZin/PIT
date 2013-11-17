@@ -77,7 +77,7 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 			}
 
 			//
-			//temp->getSchaltwerkElement()->setAnzahlNachfolger(signale[i].getAnzahlZiele() );
+			
 
 			//set isEingang
 			for(int j = 0; j < anzahlSignale; j++ ) {
@@ -141,6 +141,62 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 			}
 		}
 	}
+
+	
+	//auf unbenutzte Signale pruefen
+
+	for(int i = 0; i < anzahlSignale; i++) {
+
+		if( ( signale[i].getQuelle() == "NULL") && (signale[i].getAnzahlZiele() == 0 ) && (error == false) ) {
+			error = true;
+			cout<<"Es gibt ein unbenutztes Signal."<<endl<<endl;
+		}
+
+
+	}
+
+	//auf unbeschaltete Gattereingaenge und zu viel beschaltete Gatter pruefen
+
+	if( error == false) {
+
+		ListenElement* lauf = startElement;
+		while(lauf != NULL) {
+
+			short anzahlVorgaenger = 0;
+			ListenElement* temp =startElement;
+
+			while(temp != NULL) {
+
+				for(int i = 1; i <= temp->getSchaltwerkElement()->getAnzahlNachfolger() ; i++ ) {
+					if(temp->getSchaltwerkElement()->getNachfolger(i) == lauf->getSchaltwerkElement() ) {
+						anzahlVorgaenger++;
+					}
+
+				}
+
+
+				temp = temp->getNextListenElement();
+			}
+
+			if( anzahlVorgaenger != lauf->getSchaltwerkElement()->getTyp()->getEingaenge() ) {
+
+				error = true;
+				cout<<"Anzahl Eingaenge laut Bibliothek : "<< lauf->getSchaltwerkElement()->getTyp()->getEingaenge()<<endl;
+				cout<<"Anzahl Eingaenge laut Schaltwerk : "<<anzahlVorgaenger<<endl;
+
+			}
+
+
+
+			lauf = lauf->getNextListenElement();
+		}
+
+
+	}
+
+
+
+
 
 
 

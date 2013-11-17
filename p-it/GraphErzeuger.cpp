@@ -13,9 +13,23 @@ GraphErzeuger::GraphErzeuger()
 }
 
 
-GraphErzeuger::~GraphErzeuger()
-{
-}
+GraphErzeuger::~GraphErzeuger() {
+
+	ListenElement* lauf = startElement;
+
+	while(lauf != NULL) {
+		if(lauf->getSchaltwerkElement() != NULL) {
+			delete lauf->getSchaltwerkElement();
+			lauf->setSchaltwerkElement(NULL);
+		}
+		ListenElement* temp = lauf;
+		lauf = lauf->getNextListenElement();
+		delete temp;
+		startElement = NULL;
+		endElement = NULL;
+	}
+
+};
 
 
 void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
@@ -23,6 +37,7 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 	signale = sig;
 	anzahlSignale = anzahlSig;
 
+	bool error = false;
 	
 	//Einfach verkettete Liste erstellen
 	ListenElement* vorgaenger = NULL;
@@ -49,7 +64,10 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 
 
 			SchaltwerkElement* tempSchaltwerkElement = new SchaltwerkElement(gTyp) ;
-
+			
+			if(tempSchaltwerkElement->getTyp() == NULL) {
+				error = true;
+			}
 			
 			temp->setSchaltwerkElement(tempSchaltwerkElement);
 			//Atribute des SchaltwerkElements inizialisieren
@@ -96,8 +114,59 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 
 	for(int i = 0; i<anzahlSignale; i++) {
 
+		ListenElement* temp = startElement;
+		while(temp != NULL && ( temp->getSchaltwerkElement()->getName() != signale[i].getQuelle() )  ) {
+			temp = temp->getNextListenElement();
+
+		}
+		if(temp != NULL) {
+
+			for(int j = 1; j <= signale[i].getAnzahlZiele(); j++) {
+
+				ListenElement* ziel;
+
+				
 
 
+
+
+
+			}
+
+
+		}
+
+		
+
+
+
+
+
+
+
+	}
+
+	//wenn ein fehler aufgetreten ist
+	
+	if(error == true) {
+
+		ListenElement* lauf = startElement;
+
+		while(lauf != NULL) {
+			if(lauf->getSchaltwerkElement() != NULL) {
+				delete lauf->getSchaltwerkElement();
+				lauf->setSchaltwerkElement(NULL);
+			}
+			ListenElement* temp = lauf;
+			lauf = lauf->getNextListenElement();
+			delete temp;
+			startElement = NULL;
+			endElement = NULL;
+		}
+		cout<<endl<<"Es entstand ein Fehler beim erzeugen des Graphen."<<endl;
+		system("pause");
+
+		
 
 	}
 
@@ -112,16 +181,15 @@ void GraphErzeuger::ausgabeGraphenstruktur() {
 	
 	cout<<"Graphenstruktur"<<endl<<endl<<endl;
 
-	system("pause");
+
 
 	while(test != NULL) {
 
 		cout<<"Gattername : "<< test->getSchaltwerkElement()->getName()<<endl;
-		system("pause");
+		
 		cout<<"Gattertyp : "<< test->getSchaltwerkElement()->getTyp() /*->getName() */<<endl;
 		
-		//debug
-		system("pause");
+		
 
 
 

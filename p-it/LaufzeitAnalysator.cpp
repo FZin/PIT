@@ -36,7 +36,7 @@ void LaufzeitAnalysator::berechnungLaufzeitEinzelgatter(void) {
 		double spgFaktor;
 		double tmpFaktor;
 		double przFaktor;
-		faktoren->getFaktoren(spgFaktor, tmpFaktor, przFaktor);  // Kv, Kp, Kt aus Klasse Faktoren holen
+		faktoren->getFaktoren(spgFaktor, tmpFaktor, przFaktor);  //Kv, Kp, Kt aus Klasse Faktoren holen
 		startElement->getSchaltwerkElement()->setLaufzeitEinzelgatter((startElement->getSchaltwerkElement()->getTyp()->getGrundlaufzeit() + startElement->getSchaltwerkElement()->getTyp()->getLastFaktor() * c_last / 1000) * spgFaktor * tmpFaktor * przFaktor); //Formel umsetzen (auf Einheiten achten!)
 	}
 }

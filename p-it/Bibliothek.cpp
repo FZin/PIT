@@ -4,7 +4,6 @@ Bibliothek::Bibliothek(void)
 {
 }
 
-
 Bibliothek::~Bibliothek(void)
 {
 }
@@ -14,19 +13,19 @@ string Bibliothek::getPfad(void)
 	return datei;
 }
 
-
+//Fehlerausgabe, wenn Fehler beim Lesen der Datei
 void Bibliothek::readError(void)
 {
 	cout << "Fehler beim Lesen! " << endl;
 }
 
-
+//Fehlerausgabe, wenn Fehler beim Oeffnen der Datei
 void Bibliothek::openError(void)
 {
 	cout << "Fehler beim Oeffnen! " << endl;
 }
 
-
+//Rückgabe eines Zeigers auf gesuchtes Element
 GatterTyp*  Bibliothek::getBibElement(string typ)
 {
 	for (int i = 0; i != bibElemente.size(); i++) {
@@ -34,13 +33,13 @@ GatterTyp*  Bibliothek::getBibElement(string typ)
 			return bibElemente.at(i);
 		}
 		else{
-			return bibElemente.at(0); //falls kein typ mit eingegebenem Namen gefunden wurde zeiger auf erstes element zurückgeben
+			return bibElemente.at(0);  //Falls kein typ mit eingegebenem Namen gefunden wurde, Zeiger auf erstes element zurückgeben
 		}
 	}
-	return NULL;
+	return NULL; //Falls keine Elemente vorhanden, Rückgabe "NULL-Zeiger"
 }
 
-
+//Ausgabe der einzulesenden Datei auf dem Bildschirm
 void Bibliothek::dateiAusgabe(void)
 {
 	int nummer = 1;
@@ -49,8 +48,8 @@ void Bibliothek::dateiAusgabe(void)
 	if (!bib) {
 		openError();
 	}
-	while (getline(bib, zeile)) {
-		cout << nummer++ << " " << zeile << endl;
+	while (getline(bib, zeile)) {  // getline: Zeilenweises Einlesen der Datei
+		cout << nummer++ << " " << zeile << endl; // Nummerierung der eingelesenen Zeilen
 	}
 	if (!bib.eof()){
 		readError();
@@ -59,18 +58,18 @@ void Bibliothek::dateiAusgabe(void)
 
 }
 
-
+//Auswertung der Datei, d.h. einlesen und abspeichern benötigter Werte in entsprechende Attribute
 void Bibliothek::dateiAuswerten(void)
 {
 	ifstream bib(datei);
 	string zeile;
 	while (getline(bib,zeile)) {
-		if (zeile[0] == '[' && zeile[1] != '[' && zeile[1] != 'd') {
-			GatterTyp* tmp = new GatterTyp;
+		if (zeile[0] == '[' && zeile[1] != '[' && zeile[1] != 'd') { //Suche nach Zeilen mit Namen der Gatter
+			GatterTyp* tmp = new GatterTyp;   //Anlegen eines dynamischen Objektes
 			string nameFilter = zeile.substr(1, zeile.size()-2);
-			tmp->setName(nameFilter);
-		    while (getline(bib, zeile) && zeile.size() != 0) {
-				if (zeile.substr(0,2) == "ei") {
+			tmp->setName(nameFilter); //Namen des dynamischen Objektes festlegen/speichern
+		    while (getline(bib, zeile) && zeile.size() != 0) { //Block weiter auslesen
+				if (zeile.substr(0,2) == "ei") { //Allgemeines Prinzip: Suche nach Zeilen mit benötigten Werten, auslesen und speichern der Werte   
 					string zahl = zeile.substr(3);
 					short eingaengeFilter = atoi(zahl.c_str());
 					tmp->setEingaenge(eingaengeFilter);
@@ -91,13 +90,13 @@ void Bibliothek::dateiAuswerten(void)
 					tmp->setLastKapazitaet(lastKapazitaetFilter);
 				}
 			}
-			bibElemente.push_back(tmp);
+			bibElemente.push_back(tmp); //dynamisches Objekt mit entsprechenden Eigenschaften wird in Vektor bibElemente am Ende hinzugefuegt
 		}
-		if (zeile.substr(0,5)=="[dff]") {
-			Flipflop* tmp = new Flipflop;
+		if (zeile.substr(0,5)=="[dff]") { //Suche nach Zeilen mit Namen von Flipflops
+			Flipflop* tmp = new Flipflop;  //s.o.
 			string nameFilter = zeile.substr(1, zeile.size()-2);
 			tmp->setName(nameFilter);
-			while (getline(bib, zeile) && zeile.size() != 0) {
+			while (getline(bib, zeile) && zeile.size() != 0) { //s.o.
 				if (zeile.substr(0,2) == "ed") {
 					string zahl = zeile.substr(3);
 					short eingaengeFilter = atoi(zahl.c_str());
@@ -134,7 +133,7 @@ void Bibliothek::dateiAuswerten(void)
 					tmp->setLastKapazitaet(lastKapazitaetFilter);
 				}
 			}
-			bibElemente.push_back(tmp);
+			bibElemente.push_back(tmp); //s.o.
 		}
 		else{
 			readError();
@@ -143,7 +142,7 @@ void Bibliothek::dateiAuswerten(void)
 	bib.close();
 }
 
-
+// Einlesen des Pfades
 bool Bibliothek::pfadEinlesen(string pfad)
 {
 	ifstream bib(pfad);

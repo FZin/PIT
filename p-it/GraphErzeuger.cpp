@@ -36,9 +36,10 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 	bibliothek = bib;
 	signale = sig;
 	anzahlSignale = anzahlSig;
+	bool error = false;
 
 	//Loescht einen vorher erstellten graphen 
-	if(true) {
+	{
 
 		ListenElement* lauf = startElement;
 
@@ -55,8 +56,7 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 		}
 		
 	}
-	bool error = false;
-	
+
 	//Einfach verkettete Liste erstellen
 	ListenElement* vorgaenger = NULL;
 	for(int i = 0; i<anzahlSignale; i++) { 
@@ -196,9 +196,6 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 					}
 
 				}
-
-
-
 
 
 			

@@ -165,7 +165,7 @@ void SignalListeErzeuger::setPfad(string pfad) {
 		//Ouputsignale
 		pos = temp.find("s", posOutput);
 
-		while(pos < temp.find(";",posOutput)) {
+		while(pos < temp.find(";",posOutput) && error == false ) {
 		
 			int nummer = atoi(temp.substr(pos + 1).c_str());
 			if(nummer <= anzahlSignale) {
@@ -181,7 +181,7 @@ void SignalListeErzeuger::setPfad(string pfad) {
 
 		pos = temp.find("s", posSignals);
 
-		while(pos < temp.find(";",posSignals)) {
+		while(pos < temp.find(";",posSignals) && error == false ) {
 		
 			int nummer = atoi(temp.substr(pos + 1).c_str());
 			if(nummer <= anzahlSignale) {
@@ -198,7 +198,7 @@ void SignalListeErzeuger::setPfad(string pfad) {
 
 		
 		//unnötiges löschen
-		if( (posEnd-temp.find("g",posBegin)) > 0 ) {
+		if( (posEnd-temp.find("g",posBegin)) > 0 && error == false) {
 			temp = temp.substr( temp.find("g",posBegin), posEnd-temp.find("g",posBegin) );
 		} else {
 			error = true;

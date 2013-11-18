@@ -14,7 +14,7 @@ GraphErzeuger::GraphErzeuger()
 
 
 GraphErzeuger::~GraphErzeuger() {
-
+	
 	ListenElement* lauf = startElement;
 
 	while(lauf != NULL) {
@@ -37,6 +37,24 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 	signale = sig;
 	anzahlSignale = anzahlSig;
 
+	//Loescht einen vorher erstellten graphen 
+	if(true) {
+
+		ListenElement* lauf = startElement;
+
+		while(lauf != NULL) {
+			if(lauf->getSchaltwerkElement() != NULL) {
+				delete lauf->getSchaltwerkElement();
+				lauf->setSchaltwerkElement(NULL);
+			}
+			ListenElement* temp = lauf;
+			lauf = lauf->getNextListenElement();
+			delete temp;
+			startElement = NULL;
+			endElement = NULL;
+		}
+		
+	}
 	bool error = false;
 	
 	//Einfach verkettete Liste erstellen
@@ -55,12 +73,11 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 			endElement = temp;
 			temp->setNextElement(NULL);
 
-			cout<<signale[i].getQuellenTyp()<<endl; 
+			
 
 			GatterTyp* gTyp = bibliothek->getBibElement(signale[i].getQuellenTyp() ); 
 
-			//debug
-			cout<<gTyp->getName()<<" "<<gTyp<<endl;
+			
 
 
 			SchaltwerkElement* tempSchaltwerkElement = new SchaltwerkElement(gTyp) ;
@@ -70,16 +87,19 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 			}
 			
 			temp->setSchaltwerkElement(tempSchaltwerkElement);
+
 			//Atribute des SchaltwerkElements inizialisieren
-			temp->getSchaltwerkElement()->setName(signale[i].getQuelle() );			//name
+			//name
+			temp->getSchaltwerkElement()->setName(signale[i].getQuelle() );
+			//isAusngang
 			if (signale[i].getSignalTyp() == ausgang ) {
 				temp->getSchaltwerkElement()->setIsAusgangsElement(true);
 			}
 
-			//
+			
 			
 
-			//set isEingang
+			//isEingang
 			for(int j = 0; j < anzahlSignale; j++ ) {
 
 				if(signale[j].getQuelle() == "NULL") {
@@ -97,7 +117,7 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 			}
 			
 
-
+			//nachfolger des ListenElements erstellen
 			if( vorgaenger != NULL ) {
 				vorgaenger->setNextElement(temp);
 
@@ -110,7 +130,6 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 		}
 	
 	}
-
 
 	//Graph aufbauen
 
@@ -159,6 +178,7 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 
 	if( error == false) {
 
+		
 		ListenElement* lauf = startElement;
 		while(lauf != NULL) {
 
@@ -204,7 +224,7 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 
 
 
-
+	
 
 	//wenn ein fehler aufgetreten ist
 	

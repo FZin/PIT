@@ -170,7 +170,13 @@ void Menue::bibliothekMenue(){
 		    cin.sync();
 		} else {
 			meineBibliothek.dateiAuswerten();
+			//Wenn die Signalliste und Bibliothek erfolgreich erstellt wurden: Graph erzeugen
+			if(meinSignalListeErzeuger.getAnzahlSignale() != 0 /*&& meineBibliothek.getPfad != */  ) {
+				meinGraphErzeuger.graphBau(&meineBibliothek, meinSignalListeErzeuger.getSignale() , meinSignalListeErzeuger.getAnzahlSignale());
+			}
 		}
+
+
 		bibliothekMenue();
 		break;
 	case 2:
@@ -214,6 +220,10 @@ void Menue::schaltwerkMenue(){
 		cin>>pfad;
 		//Pfad der Schaltwerkelement
 		meinSignalListeErzeuger.setPfad(pfad);
+		//Wenn die Signalliste und Bibliothek erfolgreich erstellt wurden: Graph erzeugen
+		if(meinSignalListeErzeuger.getAnzahlSignale() != 0 /*&& meineBibliothek.getPfad != */  ) {
+			meinGraphErzeuger.graphBau(&meineBibliothek, meinSignalListeErzeuger.getSignale() , meinSignalListeErzeuger.getAnzahlSignale());
+		}
 		schaltwerkMenue();
 		break;
 	case 2:
@@ -245,11 +255,7 @@ void Menue::schaltwerkMenue(){
 void Menue::analyse(){
 	
 
-	//debug
-	meinGraphErzeuger.graphBau(&meineBibliothek, meinSignalListeErzeuger.getSignale() , meinSignalListeErzeuger.getAnzahlSignale());
 	system("pause");
-	
-	
 	start();
 	
 };

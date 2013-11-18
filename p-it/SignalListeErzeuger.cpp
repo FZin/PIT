@@ -41,11 +41,7 @@ void SignalListeErzeuger::setPfad(string pfad) {
 
 	datei=pfad;
 
-	//debug
-	//datei = "C:\\Users\\Stefan\\Documents\\Studium\\3.Semester\\IT-Praktikum\\csd.txt"; // C:\Users\Stefan\Documents\Studium\3.Semester\IT-Praktikum\csd.txt
 	
-
-	//textdatei in string datei speichern
 	bool error = false;
 	ifstream myfile;
 	myfile.open(datei);
@@ -58,6 +54,7 @@ void SignalListeErzeuger::setPfad(string pfad) {
 		
 		bool kurzschluss = false;
 
+		//textdatei in string datei speichern
 		string temp = "";
 		string zeile;
 		while(getline(myfile,zeile)) {
@@ -90,7 +87,7 @@ void SignalListeErzeuger::setPfad(string pfad) {
 		int posClock = temp.find("CLOCK",posEntity );
 	
 
-	
+		//Anzahl der Signale herrausfinden
 		//Inputsignale
 		pos = temp.find("s", posInput);
 
@@ -99,7 +96,6 @@ void SignalListeErzeuger::setPfad(string pfad) {
 			anzahlSignale++;
 		}
 	
-	
 		//Outputsignale
 		pos = temp.find("s", posOutput);
 
@@ -107,8 +103,6 @@ void SignalListeErzeuger::setPfad(string pfad) {
 			pos = temp.find("s",pos+1);
 			anzahlSignale++;
 		}
-	
-	
 	
 		//Interne Signale
 		pos = temp.find("s", posSignals);
@@ -144,13 +138,15 @@ void SignalListeErzeuger::setPfad(string pfad) {
 		int posBegin = temp.find("BEGIN",posEntity );
 		int posEnd = temp.find("END",posBegin );
 
+		//bereits erzeugte signale loeschen
 		if(signale != NULL) {
 			delete[] signale;
 		}
-
+		
 		//arry anlegen
 		signale = new Signal[anzahlSignale];
 
+		//signaltyp definieren
 		//Inputsignale
 		pos = temp.find("s", posInput);
 
@@ -165,7 +161,7 @@ void SignalListeErzeuger::setPfad(string pfad) {
 			
 			pos = temp.find("s",pos+1);
 		}
-
+		
 		//Ouputsignale
 		pos = temp.find("s", posOutput);
 
@@ -200,14 +196,17 @@ void SignalListeErzeuger::setPfad(string pfad) {
 
 	
 
-
+		
 		//unnötiges löschen
-		temp = temp.substr( temp.find("g",posBegin), posEnd-temp.find("g",posBegin) );
-
+		if( (posEnd-temp.find("g",posBegin)) > 0 ) {
+			temp = temp.substr( temp.find("g",posBegin), posEnd-temp.find("g",posBegin) );
+		} else {
+			error = true;
+		}
 	
-
+		
 		pos = temp.find("g");
-		while(pos != string::npos) { 
+		while(pos != string::npos && error == false) { 
 
 			//anzahl der signal dieses Gatters herrausfinden
 			int anzahlSig = 0;
@@ -218,7 +217,7 @@ void SignalListeErzeuger::setPfad(string pfad) {
 		
 			}
 					
-
+			
 			//ziel ins signal speichern
 			posTemp = temp.find("s",temp.find("(",pos) );
 			for(int i = 0; i < (anzahlSig-1);i++ ) {
@@ -235,13 +234,14 @@ void SignalListeErzeuger::setPfad(string pfad) {
 
 				
 				posTemp = temp.find("s", posTemp + 1 );
-
-				//wenn letztes Ziel abgearbeitet
+				
+				//wenn letztes Ziel abgearbeitet quelle definiern und auf Kurzschluss pruefen
 				if(i == (anzahlSig-2)) {
 
 
 					nummer = atoi( temp.substr(posTemp+1).c_str() );
 					ziel = temp.substr(pos, 4);
+
 					//auf Kurzschluss prüfen
 					if(nummer <= anzahlSignale) {
 						if(signale[nummer-1].getQuelle() != "NULL") {
@@ -251,7 +251,7 @@ void SignalListeErzeuger::setPfad(string pfad) {
 						error = true;
 					}
 
-					
+					//quelle definieren
 					if(nummer <= anzahlSignale) {
 						signale[nummer-1].setQuelle(ziel);
 						ziel = temp.substr( temp.find(":",pos) + 1 , temp.find("(",pos)-temp.find(":",pos) - 1 );
@@ -262,11 +262,6 @@ void SignalListeErzeuger::setPfad(string pfad) {
 						error = true;
 					}
 
-					
-
-
-					//debug
-					//cout<<"Quellentypvon Signal "<< nummer<<":"<<ziel<<endl;
 
 
 
@@ -276,27 +271,9 @@ void SignalListeErzeuger::setPfad(string pfad) {
 	
 			pos =temp.find("g",pos+1);
 		}
+		
 
-
-
-
-		//auf rückkopplung prüfen
-	
-
-		//for(int i = 0; i < anzahlSignale; i++) { //Signale
-		//	for(int j = 1; j <= signale[i].getAnzahlZiele(); j++ ) { //Ziele
-
-		//		int posGatter = temp.find(signale[i].getQuelle());
-		//		int posClk = temp.find("clk", posGatter);
-		//		int posSemi = temp.find(";", posGatter);
-		//		if( (signale[i].getQuelle() == signale[i].getZiel(j) ) && !( (posClk<posSemi) && (posClk != string::npos) ) ) {
-		//			kurzschluss = true;
-		//		}
-
-		//	}
-	
-		//}
-
+		//wenn ein Fehler auftritt, signale loeschen
 		if(error == true) {
 			delete[] signale;
 			signale = NULL;
@@ -308,7 +285,7 @@ void SignalListeErzeuger::setPfad(string pfad) {
 		}
 
 
-
+		//wenn ein Kurzschluss auftritt, signale loeschen
 		if(kurzschluss == true) {
 			delete[] signale;
 			signale = NULL;

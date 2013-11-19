@@ -114,31 +114,29 @@ double Faktoren::getTemperatur()
 
 void Faktoren::getFaktoren(double& spgFaktor, double& tmpFaktor, double& przFaktor)
 {
-	if (berechneSpannungFaktor(spannung) && berechneTemperaturFaktor(temperatur) && berechneProzessFaktor(prozess)) {
 		spgFaktor = spannungFaktor;
 		tmpFaktor = temperaturFaktor;
 		przFaktor = prozessFaktor;
-	}
 }
 
 bool Faktoren::setSpannung(double spannung)
 {
 	this->spannung = spannung;
-	return true;
+	return berechneSpannungFaktor(this->spannung);
 }
 
 
 bool Faktoren::setTemperatur(double temperatur)
 {
 	this->temperatur = temperatur;
-	return true;
+	return berechneTemperaturFaktor(this->temperatur);
 }
 
 
 bool Faktoren::setProzess(short prozess)
 {
 	this->prozess = prozess;
-	return true;
+	return berechneProzessFaktor(this->prozess);
 }
 
 bool Faktoren::InfoFromItivDevice()

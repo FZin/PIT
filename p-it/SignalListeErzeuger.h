@@ -30,5 +30,4 @@ public:
 	short getAnzahlSignale(){ return anzahlSignale;};
 
 };
-
 #endif

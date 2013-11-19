@@ -1,7 +1,7 @@
 #include "SchaltwerkElement.h"
 
-SchaltwerkElement::SchaltwerkElement( GatterTyp* gTyp) { 
-
+SchaltwerkElement::SchaltwerkElement(GatterTyp* gTyp) 
+{ 
 	name = "";
 	typ = gTyp;
 	laufzeitEinzelGatter = 0;
@@ -13,29 +13,27 @@ SchaltwerkElement::SchaltwerkElement( GatterTyp* gTyp) {
 
 };
 
-SchaltwerkElement::~SchaltwerkElement() {
-	if( nachfolgerElement != NULL) { 
+SchaltwerkElement::~SchaltwerkElement() 
+{
+	if (nachfolgerElement != NULL) { 
 		delete[] nachfolgerElement;
 	}
 
 };
 
-SchaltwerkElement* SchaltwerkElement::getNachfolger(int pos) {
-
+SchaltwerkElement* SchaltwerkElement::getNachfolger(int pos) 
+{
 	SchaltwerkElement* temp = nachfolgerElement[pos-1];
-
 
 	return temp;
 };
 
-void SchaltwerkElement::nachfolgerHinzufuegen( SchaltwerkElement* schaltwerkElement, int pos ) {
-	
-
-	
-	if(pos == anzahlNachfolger + 1 ) {
+void SchaltwerkElement::nachfolgerHinzufuegen(SchaltwerkElement* schaltwerkElement, int pos) 
+{
+	if (pos == anzahlNachfolger + 1) {
 		SchaltwerkElement** temp = new SchaltwerkElement*[anzahlNachfolger +1];
 
-		for(int i = 0; i<anzahlNachfolger; i++) { 
+		for (int i = 0; i < anzahlNachfolger; i++) { 
 			temp[i] = nachfolgerElement[i];
 		}
 
@@ -48,11 +46,7 @@ void SchaltwerkElement::nachfolgerHinzufuegen( SchaltwerkElement* schaltwerkElem
 	} else {
 		nachfolgerElement[pos-1] = schaltwerkElement;
 
-
-
 	}
-
-
 
 	
 };

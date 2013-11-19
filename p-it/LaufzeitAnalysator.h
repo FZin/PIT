@@ -12,11 +12,11 @@ class LaufzeitAnalysator
 private:
 	Faktoren* faktoren;
 	ListenElement* startElement;
+
 public:
 	LaufzeitAnalysator();
 	~LaufzeitAnalysator();
 	void init(Faktoren* f, ListenElement* s);
 	void berechnungLaufzeitEinzelgatter(void);
 };
-
 #endif

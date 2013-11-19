@@ -1,14 +1,11 @@
-
 #ifndef FAKTOREN_H
 #define FAKTOREN_H
+
 #include "itiv_win_drv.h"
 #include <iostream>
 
 class Faktoren
 {
-public:
-	Faktoren();
-	virtual ~Faktoren();
 private:
 	double spannung;
 	double temperatur;
@@ -24,6 +21,8 @@ private:
 	
 	
 public:
+	Faktoren();
+	virtual ~Faktoren();
 	void ausgabeFaktoren();
 	double getSpannung();
 	double getTemperatur();

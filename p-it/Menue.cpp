@@ -171,6 +171,8 @@ void Menue::bibliothekMenue(){
 		} else {
 			meineBibliothek.dateiAuswerten();
 		}
+
+
 		bibliothekMenue();
 		break;
 	case 2:
@@ -208,12 +210,14 @@ void Menue::schaltwerkMenue(){
 	switch(eingabe){
 	case 1:
 		
-		cout<<"Bitte geben Sie den gewuenschten Pfad ein:"<<endl;
+		cout<<"Bitte geben Sie den gewuenschten Pfad ein ('EXIT' zum abbrechen):"<<endl;
 		cin.clear();
 		cin.sync();
 		cin>>pfad;
 		//Pfad der Schaltwerkelement
-		meinSignalListeErzeuger.setPfad(pfad);
+		if(pfad != "EXIT" && pfad != "exit" && pfad != "Exit") {
+			meinSignalListeErzeuger.setPfad(pfad);
+		}
 		schaltwerkMenue();
 		break;
 	case 2:
@@ -228,6 +232,7 @@ void Menue::schaltwerkMenue(){
 		schaltwerkMenue();
 		break;
 	case 4:
+		meinGraphErzeuger.graphBau(&meineBibliothek, meinSignalListeErzeuger.getSignale() , meinSignalListeErzeuger.getAnzahlSignale());
 		meinGraphErzeuger.ausgabeGraphenstruktur();
 		system("pause");
 		schaltwerkMenue();
@@ -243,13 +248,9 @@ void Menue::schaltwerkMenue(){
 
 };
 void Menue::analyse(){
-	
-
-	//debug
 	meinGraphErzeuger.graphBau(&meineBibliothek, meinSignalListeErzeuger.getSignale() , meinSignalListeErzeuger.getAnzahlSignale());
+
 	system("pause");
-	
-	
 	start();
 	
 };

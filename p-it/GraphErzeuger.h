@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GRAPHERZEUGER_H
+#define GRAPHERZEUGER_H
 
 #include <iostream>
 #include <string>
@@ -17,11 +18,11 @@ private:
 	Signal* signale;
 	short anzahlSignale;
 
-
 public:
 	GraphErzeuger();
 	~GraphErzeuger();
 	void graphBau( Bibliothek* bib, Signal* sig, short anzahlSig );
 	void ausgabeGraphenstruktur();
 };
+#endif
 

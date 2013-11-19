@@ -51,6 +51,20 @@ void SignalListeErzeuger::setPfad(string pfad) {
 		system("pause");
 		
 	} else {
+
+		//Vorhandene Signale loeschen
+		{
+			if(signale != NULL) {
+				delete[] signale;
+				signale = NULL;
+			}
+			
+			anzahlSignale = 0;
+			frequenz = 0;
+
+		
+		}
+
 		
 		bool kurzschluss = false;
 
@@ -62,6 +76,7 @@ void SignalListeErzeuger::setPfad(string pfad) {
 		}
 		myfile.close();
 	
+		
 
 
 
@@ -198,7 +213,7 @@ void SignalListeErzeuger::setPfad(string pfad) {
 
 		
 		//unnötiges löschen
-		if( (posEnd-temp.find("g",posBegin)) > 0 && error == false) {
+		if( (temp.find("g",posBegin)) < temp.size() && error == false) {
 			temp = temp.substr( temp.find("g",posBegin), posEnd-temp.find("g",posBegin) );
 		} else {
 			error = true;

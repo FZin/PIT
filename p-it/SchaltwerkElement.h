@@ -4,7 +4,6 @@
 #include <iostream>
 #include <string>
 
-
 #include "GatterTyp.h"
 
 class SchaltwerkElement
@@ -18,7 +17,6 @@ private:
 	bool isEingangsElement;
 	bool isAusgangsElement;
 	short anzahlEingangssignale;
-
 
 public:
 	SchaltwerkElement(GatterTyp* gTyp);
@@ -39,8 +37,5 @@ public:
 	void setIsAusgangsElement( bool isAusgangsEl) { isAusgangsElement = isAusgangsEl; };
 	void setLaufzeitEinzelgatter( double lfz) {laufzeitEinzelGatter = lfz; };
 
-	
-
 };
-
 #endif

@@ -8,8 +8,8 @@ using namespace std;
 
 enum signalTypen { eingang, intern, ausgang, unbekannt };
 
-class Signal {
-
+class Signal 
+{
 private:
 	signalTypen signalTyp;
 	string quelle;

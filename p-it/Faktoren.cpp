@@ -2,6 +2,7 @@
 #include "Faktoren.h"
 #include <iostream>
 //#include <iomanip>
+
 using namespace std;
 
 
@@ -26,7 +27,7 @@ bool Faktoren::berechneSpannungFaktor(double spg)
 {
 	double spFaktoren[7][2] = { { 1.08, 1.121557 }, { 1.12, 1075332 }, { 1.16, 1.035161 }, { 1.20, 1.0 }, { 1.24, 0.968480 }, { 1.28, 0.940065 }, { 1.32, 0.914482 } };
 	int asize = sizeof (spFaktoren) / sizeof(spFaktoren[0]);
-	if ( !(( spg < spFaktoren[0][0] ) || ( spg > spFaktoren[asize - 1][0] ))) {
+	if (!(( spg < spFaktoren[0][0] ) || ( spg > spFaktoren[asize - 1][0] ))) {
 		spannungFaktor = berechneFaktor(spg, spFaktoren, asize);
 		return true;
 	}
@@ -52,7 +53,7 @@ bool Faktoren::berechneProzessFaktor(short prz)
 {
 	double prFaktoren[3][2] = { { 1, 1.174235 }, { 2, 1.0 }, { 3, 0.876148 } };
 	int asize = sizeof(prFaktoren) / sizeof(prFaktoren[0]);
-	for (int i = 0; i < asize; i++){
+	for (int i = 0; i < asize; i++) {
 		int help = prz;
 		if (help == prFaktoren[i][0]){
 			prozessFaktor = prFaktoren[i][1];
@@ -67,8 +68,8 @@ bool Faktoren::berechneProzessFaktor(short prz)
 double Faktoren::berechneFaktor(double value, double arr[][2], int laenge)
 {
 	double r;
-	for (int i = 0; i < laenge; i++){
-		if ((arr[i][0] <= value) && (value < arr[i + 1][0])){
+	for (int i = 0; i < laenge; i++) {
+		if ((arr[i][0] <= value) && (value < arr[i + 1][0])) {
 			r = interpolation(value, arr[i][0], arr[i + 1][0], arr[i][1], arr[i + 1][1]);
 		}
 	}
@@ -86,7 +87,7 @@ double Faktoren::interpolation(double value, double x1, double x2, double y1, do
 
 void Faktoren::ausgabeFaktoren()
 {
-	if (berechneSpannungFaktor(spannung) && berechneTemperaturFaktor(temperatur) && berechneProzessFaktor(prozess)){
+	if (berechneSpannungFaktor(spannung) && berechneTemperaturFaktor(temperatur) && berechneProzessFaktor(prozess)) {
 		cout << "Faktoren: KV: " << spannungFaktor << "\|KT: " << temperaturFaktor << "\|KP: " << prozessFaktor << endl;
 	}
 }
@@ -112,7 +113,7 @@ double Faktoren::getTemperatur()
 
 void Faktoren::getFaktoren(double& spgFaktor, double& tmpFaktor, double& przFaktor)
 {
-	if (berechneSpannungFaktor(spannung) && berechneTemperaturFaktor(temperatur) && berechneProzessFaktor(prozess)){
+	if (berechneSpannungFaktor(spannung) && berechneTemperaturFaktor(temperatur) && berechneProzessFaktor(prozess)) {
 		spgFaktor = spannungFaktor;
 		tmpFaktor = temperaturFaktor;
 		przFaktor = prozessFaktor;
@@ -145,8 +146,8 @@ bool Faktoren::InfoFromItivDevice()
 	double neuerWert;
 	int neuerInt;
 	bool err;
-	for (int i = 1; i < 4; i++){
-		while (!err){
+	for (int i = 1; i < 4; i++) {
+		while (!err) {
 			err = false;
 			*((int*)DevPtr->BaseAddress + CTRL_REG) = 0x0;
 			while (!(*(int*)DevPtr->BaseAddress + STAT_REG == 0x01000000));
@@ -173,8 +174,6 @@ bool Faktoren::InfoFromItivDevice()
 			}
 		}
 	}
-	
-	
 	
 	return false;
 }

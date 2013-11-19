@@ -12,7 +12,6 @@ private:
 	SchaltwerkElement* schaltwerkElement;
 	ListenElement* next;
 
-
 public:
 	ListenElement();
 	~ListenElement();
@@ -20,6 +19,5 @@ public:
 	ListenElement* getNextListenElement() {return next; };
 	void setSchaltwerkElement( SchaltwerkElement* schaltwerEl ) { schaltwerkElement = schaltwerEl; }; 
 	void setNextElement( ListenElement* nextEl ) { next =nextEl; };
-
 };
 #endif

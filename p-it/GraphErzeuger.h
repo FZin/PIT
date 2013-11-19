@@ -18,7 +18,6 @@ private:
 	Signal* signale;
 	short anzahlSignale;
 
-
 public:
 	GraphErzeuger();
 	~GraphErzeuger();

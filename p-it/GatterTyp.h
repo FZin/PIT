@@ -2,6 +2,7 @@
 #define GATTERTYP_H
 
 #include<string>
+
 using namespace std;
 
 class GatterTyp

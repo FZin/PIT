@@ -13,12 +13,12 @@ GraphErzeuger::GraphErzeuger()
 }
 
 
-GraphErzeuger::~GraphErzeuger() {
-	
+GraphErzeuger::~GraphErzeuger() 
+{
 	ListenElement* lauf = startElement;
 
-	while(lauf != NULL) {
-		if(lauf->getSchaltwerkElement() != NULL) {
+	while (lauf != NULL) {
+		if (lauf->getSchaltwerkElement() != NULL) {
 			delete lauf->getSchaltwerkElement();
 			lauf->setSchaltwerkElement(NULL);
 		}
@@ -32,7 +32,8 @@ GraphErzeuger::~GraphErzeuger() {
 };
 
 
-void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
+void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig) 
+{
 	bibliothek = bib;
 	signale = sig;
 	anzahlSignale = anzahlSig;
@@ -40,11 +41,10 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 
 	//Loescht einen vorher erstellten graphen 
 	{
-
 		ListenElement* lauf = startElement;
 
-		while(lauf != NULL) {
-			if(lauf->getSchaltwerkElement() != NULL) {
+		while (lauf != NULL) {
+			if (lauf->getSchaltwerkElement() != NULL) {
 				delete lauf->getSchaltwerkElement();
 				lauf->setSchaltwerkElement(NULL);
 			}
@@ -59,15 +59,15 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 
 	//Einfach verkettete Liste erstellen
 	ListenElement* vorgaenger = NULL;
-	for(int i = 0; i<anzahlSignale; i++) { 
+	for (int i = 0; i<anzahlSignale; i++) { 
 
 		
 
-		if(signale[i].getQuelle() != "NULL") {
+		if (signale[i].getQuelle() != "NULL") {
 
 			ListenElement* temp = new ListenElement;
 
-			if( startElement == NULL ) {
+			if (startElement == NULL ) {
 				startElement = temp;
 			}
 			endElement = temp;
@@ -75,14 +75,14 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 
 			
 
-			GatterTyp* gTyp = bibliothek->getBibElement(signale[i].getQuellenTyp() ); 
+			GatterTyp* gTyp = bibliothek->getBibElement(signale[i].getQuellenTyp()); 
 
 			
 
 
 			SchaltwerkElement* tempSchaltwerkElement = new SchaltwerkElement(gTyp) ;
 			
-			if(tempSchaltwerkElement->getTyp() == NULL) {
+			if (tempSchaltwerkElement->getTyp() == NULL) {
 				error = true;
 			}
 			
@@ -92,7 +92,7 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 			//name
 			temp->getSchaltwerkElement()->setName(signale[i].getQuelle() );
 			//isAusngang
-			if (signale[i].getSignalTyp() == ausgang ) {
+			if (signale[i].getSignalTyp() == ausgang) {
 				temp->getSchaltwerkElement()->setIsAusgangsElement(true);
 			}
 
@@ -100,13 +100,13 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 			
 
 			//isEingang
-			for(int j = 0; j < anzahlSignale; j++ ) {
+			for (int j = 0; j < anzahlSignale; j++) {
 
-				if(signale[j].getQuelle() == "NULL") {
+				if (signale[j].getQuelle() == "NULL") {
 
-					for(int k = 1; k <= signale[j].getAnzahlZiele() ; k++ ) {
+					for (int k = 1; k <= signale[j].getAnzahlZiele() ; k++) {
 
-						if( signale[j].getZiel(k) == temp->getSchaltwerkElement()->getName() ) {
+						if (signale[j].getZiel(k) == temp->getSchaltwerkElement()->getName()) {
 							temp->getSchaltwerkElement()->setIsEingangsElement(true);
 						}
 
@@ -118,40 +118,38 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 			
 
 			//nachfolger des ListenElements erstellen
-			if( vorgaenger != NULL ) {
+			if (vorgaenger != NULL ) {
 				vorgaenger->setNextElement(temp);
 
 			}
 
-
 			vorgaenger = temp;
-
-
+			
 		}
 	
 	}
 
 	//Graph aufbauen
 
-	for(int i = 0; i<anzahlSignale; i++) {
+	for (int i = 0; i<anzahlSignale; i++) {
 
 		ListenElement* temp = startElement;
-		while(temp != NULL && ( temp->getSchaltwerkElement()->getName() != signale[i].getQuelle() )  ) {
+		while (temp != NULL && ( temp->getSchaltwerkElement()->getName() != signale[i].getQuelle())) {
 			temp = temp->getNextListenElement();
 
 		}
-		if(temp != NULL) {
+		if (temp != NULL) {
 
-			for(int j = 1; j <= signale[i].getAnzahlZiele(); j++) {
+			for (int j = 1; j <= signale[i].getAnzahlZiele(); j++) {
 
 				ListenElement* ziel = startElement;
 
-				while(ziel != NULL && (ziel->getSchaltwerkElement()->getName() != signale[i].getZiel(j)   )) {
+				while (ziel != NULL && (ziel->getSchaltwerkElement()->getName() != signale[i].getZiel(j))) {
 					ziel = ziel->getNextListenElement();
 				}
 
 
-				if(ziel != NULL) {
+				if (ziel != NULL) {
 					temp->getSchaltwerkElement()->nachfolgerHinzufuegen(ziel->getSchaltwerkElement(), temp->getSchaltwerkElement()->getAnzahlNachfolger() + 1);
 				} else {
 					error = true;
@@ -164,11 +162,11 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 	
 	//auf unbenutzte Signale pruefen
 
-	for(int i = 0; i < anzahlSignale; i++) {
+	for (int i = 0; i < anzahlSignale; i++) {
 
-		if( ( signale[i].getQuelle() == "NULL") && (signale[i].getAnzahlZiele() == 0 ) && (error == false) ) {
+		if (( signale[i].getQuelle() == "NULL") && (signale[i].getAnzahlZiele() == 0 ) && (error == false)) {
 			error = true;
-			cout<<"Es gibt ein unbenutztes Signal."<<endl<<endl;
+			cout << "Es gibt ein unbenutztes Signal."<< endl << endl;
 		}
 
 
@@ -176,20 +174,20 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 
 	//auf unbeschaltete Gattereingaenge und zu viel beschaltete Gatter pruefen
 
-	if( error == false) {
+	if (error == false) {
 
 		
 		ListenElement* lauf = startElement;
-		while(lauf != NULL) {
+		while (lauf != NULL) {
 
 			short anzahlVorgaenger = 0;
 			
 
 			
 
-				for( int i = 0; i < anzahlSignale ; i++) {
-					for(int j = 1; j <= signale[i].getAnzahlZiele(); j++) {
-						if(signale[i].getZiel(j) == lauf->getSchaltwerkElement()->getName() ) {
+				for (int i = 0; i < anzahlSignale ; i++) {
+					for (int j = 1; j <= signale[i].getAnzahlZiele(); j++) {
+						if (signale[i].getZiel(j) == lauf->getSchaltwerkElement()->getName()) {
 							anzahlVorgaenger++;
 						}
 
@@ -199,12 +197,12 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 
 
 			
-			if( anzahlVorgaenger != lauf->getSchaltwerkElement()->getTyp()->getEingaenge() ) {
+			if (anzahlVorgaenger != lauf->getSchaltwerkElement()->getTyp()->getEingaenge()) {
 
 				error = true;
 				cout<<lauf->getSchaltwerkElement()->getName()<<endl;
-				cout<<"Anzahl Eingaenge laut Bibliothek : "<< lauf->getSchaltwerkElement()->getTyp()->getEingaenge()<<endl;
-				cout<<"Anzahl Eingaenge laut Schaltwerk : "<<anzahlVorgaenger<<endl<<endl;
+				cout << "Anzahl Eingaenge laut Bibliothek : "<< lauf->getSchaltwerkElement()->getTyp()->getEingaenge() << endl;
+				cout << "Anzahl Eingaenge laut Schaltwerk : "<< anzahlVorgaenger << endl << endl;
 
 			}
 
@@ -225,12 +223,12 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 
 	//wenn ein fehler aufgetreten ist
 	
-	if(error == true) {
+	if (error == true) {
 
 		ListenElement* lauf = startElement;
 
-		while(lauf != NULL) {
-			if(lauf->getSchaltwerkElement() != NULL) {
+		while (lauf != NULL) {
+			if (lauf->getSchaltwerkElement() != NULL) {
 				delete lauf->getSchaltwerkElement();
 				lauf->setSchaltwerkElement(NULL);
 			}
@@ -240,7 +238,7 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 			startElement = NULL;
 			endElement = NULL;
 		}
-		cout<<endl<<"Es entstand ein Fehler beim erzeugen des Graphen."<<endl;
+		cout << endl << "Es entstand ein Fehler beim erzeugen des Graphen."<< endl;
 		system("pause");
 	}
 
@@ -249,29 +247,29 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 
 };
 
-void GraphErzeuger::ausgabeGraphenstruktur() {
-
+void GraphErzeuger::ausgabeGraphenstruktur()
+{
 	ListenElement* test = startElement;
 	
-	cout<<"Graphenstruktur"<<endl<<endl<<endl;
+	cout << "Graphenstruktur"<< endl << endl << endl;
 
 
 
-	while(test != NULL) {
+	while (test != NULL) {
 
-		cout<<"Gattername : "<< test->getSchaltwerkElement()->getName()<<endl;
+		cout << "Gattername : "<< test->getSchaltwerkElement()->getName() << endl;
 		
-		cout<<"Gattertyp : "<< test->getSchaltwerkElement()->getTyp()->getName()<<endl;
+		cout << "Gattertyp : "<< test->getSchaltwerkElement()->getTyp()->getName() << endl;
 		
-		cout<<"-->Das Gatter hat "<< test->getSchaltwerkElement()->getAnzahlNachfolger() <<" Ziele"<<endl;
+		cout << "-->Das Gatter hat "<< test->getSchaltwerkElement()->getAnzahlNachfolger() << " Ziele"<< endl;
 
-		cout<<"Angeschlossene Gatter : ";
+		cout << "Angeschlossene Gatter : ";
 
-		for(int i = 1; i <= test->getSchaltwerkElement()->getAnzahlNachfolger() ; i++ ) {
-			cout<< test->getSchaltwerkElement()->getNachfolger(i)->getName()  <<" ";
+		for (int i = 1; i <= test->getSchaltwerkElement()->getAnzahlNachfolger() ; i++) {
+			cout << test->getSchaltwerkElement()->getNachfolger(i)->getName()  << " ";
 		}
 
-		cout<<endl<<endl;
+		cout << endl << endl;
 
 		test = test->getNextListenElement();
 	}

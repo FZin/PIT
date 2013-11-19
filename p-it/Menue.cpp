@@ -19,9 +19,9 @@ void Menue::start() {
 	menueKopf();
 
 	cout<<"(1) auessere Faktoren"<<endl;
-	cout<<"Spannung [Volt] : "<</*meineFaktoren.getSpannung()<<*/endl;
-	cout<<"Temperatur [Grad Celsius] : "<</*meineFaktoren.getTemperatur()<<*/endl;
-	cout<<"Prozess (1=slow, 2=typical, 3=fast) : "<</*meineFaktoren.getProzess()<<*/endl<<endl;
+	cout<<"Spannung [Volt] : "<<meineFaktoren.getSpannung()<<endl;
+	cout<<"Temperatur [Grad Celsius] : "<<meineFaktoren.getTemperatur()<<endl;
+	cout<<"Prozess (1=slow, 2=typical, 3=fast) : "<<meineFaktoren.getProzess()<<endl<<endl;
 	cout<<"(2) Bibliothek"<<endl;
 	cout<<"Pfad zur Bibliotheksdatei: "<< meineBibliothek.getPfad()<< endl<<endl;
 	cout<<"(3) Schaltwerk"<<endl;
@@ -67,10 +67,16 @@ void Menue::faktorenMenue()
 	system("cls");
 	menueKopf();
 	cout<<"Untermenue Aeussere Faktoren"<<endl<<endl;
-	cout<<"(1) Spannung [Volt]: "<</*meineFaktoren.getSpannung()<<*/ " aendern" <<endl<<endl;
-	cout<<"(2) Temperatur [Grad Celsius] : "<</*meineFaktoren.getTemperatur()<<*/" aendern"<<endl<<endl;
-	cout<<"(3) Prozess (1=slow, 2=typical, 3=fast) : "<</*meineFaktoren.getProzess()<<*/" aendern"<<endl<<endl;
-	cout<<"(4) Hauptmenue"<<endl<<endl<<endl;
+	cout<<"(1) Spannung [Volt]: "<< meineFaktoren.getSpannung() << " aendern" <<endl<<endl;
+	cout<<"(2) Temperatur [Grad Celsius] : "<< meineFaktoren.getTemperatur()<< " aendern"<<endl<<endl;
+	cout<<"(3) Prozess (1=slow, 2=typical, 3=fast) : "<< meineFaktoren.getProzess()<< " aendern"<<endl<<endl;
+	cout<<"(4) Debugmodus: ";
+	if (meineFaktoren.debugVar){
+		cout<< "ausschalten" << endl<<endl;
+	}else{
+		cout<< "einschalten" << endl<<endl;
+	}
+	cout<<"(5) Hauptmenue"<<endl<<endl<<endl;
 
 	cout<<"Waehle einen Menuepunkt und bestaetige mit Enter:"<<endl;
 	
@@ -87,7 +93,7 @@ void Menue::faktorenMenue()
 		cin.clear();
 		cin.sync();
 		cin>>spannung;
-		//meineFaktoren.setSpannung(spannung);
+		meineFaktoren.setSpannung(spannung);
 		faktorenMenue();
 		break;
 	case 2:
@@ -96,7 +102,7 @@ void Menue::faktorenMenue()
 		cin.clear();
 		cin.sync();
 		cin>>temperatur;
-		//meineFaktoren.setTemperatur(temperatur);
+		meineFaktoren.setTemperatur(temperatur);
 		faktorenMenue();
 		break;
 	case 3:
@@ -110,11 +116,17 @@ void Menue::faktorenMenue()
 				cout<<"Falsche Eingabe, bitte wiederholen:"<<endl;
 			}
 		}while(prozess != 1 && prozess != 2 && prozess != 3);
-		//meineFaktoren.setProzess(prozess);
+		meineFaktoren.setProzess(prozess);
 		faktorenMenue();
 		break;
 	case 4:
-
+		if (meineFaktoren.debugVar){
+			meineFaktoren.debugVar = false;
+		}else{
+			meineFaktoren.debugVar = true;
+		}
+		break;
+	case 5:
 		start();
 		break;
 	
@@ -122,6 +134,7 @@ void Menue::faktorenMenue()
 		faktorenMenue();
 		break;
 	}
+	faktorenMenue();
 
 
 	
@@ -155,7 +168,11 @@ void Menue::bibliothekMenue(){
 		    cout<<"Enter druecken zum fortfahren"<<endl;
 		    cin.clear();
 		    cin.sync();
+		} else {
+			meineBibliothek.dateiAuswerten();
 		}
+
+
 		bibliothekMenue();
 		break;
 	case 2:
@@ -213,6 +230,7 @@ void Menue::schaltwerkMenue(){
 		schaltwerkMenue();
 		break;
 	case 4:
+		meinGraphErzeuger.graphBau(&meineBibliothek, meinSignalListeErzeuger.getSignale() , meinSignalListeErzeuger.getAnzahlSignale());
 		meinGraphErzeuger.ausgabeGraphenstruktur();
 		system("pause");
 		schaltwerkMenue();
@@ -228,13 +246,9 @@ void Menue::schaltwerkMenue(){
 
 };
 void Menue::analyse(){
-	
+	meinGraphErzeuger.graphBau(&meineBibliothek, meinSignalListeErzeuger.getSignale() , meinSignalListeErzeuger.getAnzahlSignale());
 
-	//debug
-	//meinSignalListeErzeuger.setPfad("C:\\Users\\Stefan\\Documents\\Studium\\3.Semester\\IT-Praktikum\\csd.txt");
-	//bool test = meineBibliothek.pfadEinlesen("C:\\Users\\Stefan\\Documents\\Studium\\3.Semester\\IT-Praktikum\\bib.txt");
-	//meinGraphErzeuger.graphBau(&meineBibliothek, meinSignalListeErzeuger.getSignale() , meinSignalListeErzeuger.getAnzahlSignale());
-	//system("pause");
-	//start();
+	system("pause");
+	start();
 	
 };

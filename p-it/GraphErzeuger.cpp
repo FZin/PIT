@@ -14,7 +14,7 @@ GraphErzeuger::GraphErzeuger()
 
 
 GraphErzeuger::~GraphErzeuger() {
-
+	
 	ListenElement* lauf = startElement;
 
 	while(lauf != NULL) {
@@ -36,9 +36,27 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 	bibliothek = bib;
 	signale = sig;
 	anzahlSignale = anzahlSig;
-
 	bool error = false;
-	
+
+	//Loescht einen vorher erstellten graphen 
+	{
+
+		ListenElement* lauf = startElement;
+
+		while(lauf != NULL) {
+			if(lauf->getSchaltwerkElement() != NULL) {
+				delete lauf->getSchaltwerkElement();
+				lauf->setSchaltwerkElement(NULL);
+			}
+			ListenElement* temp = lauf;
+			lauf = lauf->getNextListenElement();
+			delete temp;
+			startElement = NULL;
+			endElement = NULL;
+		}
+		
+	}
+
 	//Einfach verkettete Liste erstellen
 	ListenElement* vorgaenger = NULL;
 	for(int i = 0; i<anzahlSignale; i++) { 
@@ -55,12 +73,11 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 			endElement = temp;
 			temp->setNextElement(NULL);
 
-			cout<<signale[i].getQuellenTyp()<<endl; 
+			
 
 			GatterTyp* gTyp = bibliothek->getBibElement(signale[i].getQuellenTyp() ); 
 
-			//debug
-			cout<<gTyp<<endl;
+			
 
 
 			SchaltwerkElement* tempSchaltwerkElement = new SchaltwerkElement(gTyp) ;
@@ -70,16 +87,19 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 			}
 			
 			temp->setSchaltwerkElement(tempSchaltwerkElement);
+
 			//Atribute des SchaltwerkElements inizialisieren
-			temp->getSchaltwerkElement()->setName(signale[i].getQuelle() );			//name
+			//name
+			temp->getSchaltwerkElement()->setName(signale[i].getQuelle() );
+			//isAusngang
 			if (signale[i].getSignalTyp() == ausgang ) {
 				temp->getSchaltwerkElement()->setIsAusgangsElement(true);
 			}
 
-			//
-			//temp->getSchaltwerkElement()->setAnzahlNachfolger(signale[i].getAnzahlZiele() );
+			
+			
 
-			//set isEingang
+			//isEingang
 			for(int j = 0; j < anzahlSignale; j++ ) {
 
 				if(signale[j].getQuelle() == "NULL") {
@@ -97,7 +117,7 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 			}
 			
 
-
+			//nachfolger des ListenElements erstellen
 			if( vorgaenger != NULL ) {
 				vorgaenger->setNextElement(temp);
 
@@ -110,7 +130,6 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 		}
 	
 	}
-
 
 	//Graph aufbauen
 
@@ -142,8 +161,67 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 		}
 	}
 
+	
+	//auf unbenutzte Signale pruefen
+
+	for(int i = 0; i < anzahlSignale; i++) {
+
+		if( ( signale[i].getQuelle() == "NULL") && (signale[i].getAnzahlZiele() == 0 ) && (error == false) ) {
+			error = true;
+			cout<<"Es gibt ein unbenutztes Signal."<<endl<<endl;
+		}
 
 
+	}
+
+	//auf unbeschaltete Gattereingaenge und zu viel beschaltete Gatter pruefen
+
+	if( error == false) {
+
+		
+		ListenElement* lauf = startElement;
+		while(lauf != NULL) {
+
+			short anzahlVorgaenger = 0;
+			
+
+			
+
+				for( int i = 0; i < anzahlSignale ; i++) {
+					for(int j = 1; j <= signale[i].getAnzahlZiele(); j++) {
+						if(signale[i].getZiel(j) == lauf->getSchaltwerkElement()->getName() ) {
+							anzahlVorgaenger++;
+						}
+
+					}
+
+				}
+
+
+			
+			if( anzahlVorgaenger != lauf->getSchaltwerkElement()->getTyp()->getEingaenge() ) {
+
+				error = true;
+				cout<<lauf->getSchaltwerkElement()->getName()<<endl;
+				cout<<"Anzahl Eingaenge laut Bibliothek : "<< lauf->getSchaltwerkElement()->getTyp()->getEingaenge()<<endl;
+				cout<<"Anzahl Eingaenge laut Schaltwerk : "<<anzahlVorgaenger<<endl<<endl;
+
+			}
+
+
+
+			lauf = lauf->getNextListenElement();
+		}
+
+
+	}
+
+
+
+
+
+
+	
 
 	//wenn ein fehler aufgetreten ist
 	
@@ -164,9 +242,6 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig ) {
 		}
 		cout<<endl<<"Es entstand ein Fehler beim erzeugen des Graphen."<<endl;
 		system("pause");
-
-		
-
 	}
 
 
@@ -186,7 +261,7 @@ void GraphErzeuger::ausgabeGraphenstruktur() {
 
 		cout<<"Gattername : "<< test->getSchaltwerkElement()->getName()<<endl;
 		
-		cout<<"Gattertyp : "<< test->getSchaltwerkElement()->getTyp() /*->getName() */<<endl;
+		cout<<"Gattertyp : "<< test->getSchaltwerkElement()->getTyp()->getName()<<endl;
 		
 		cout<<"-->Das Gatter hat "<< test->getSchaltwerkElement()->getAnzahlNachfolger() <<" Ziele"<<endl;
 

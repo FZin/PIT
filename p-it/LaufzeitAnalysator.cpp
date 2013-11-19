@@ -28,7 +28,7 @@ void LaufzeitAnalysator::berechnungLaufzeitEinzelgatter(void) {
 					if (element->getIsFlipflop() == false) {   //wenn Gatter...
 						c_last += element->getEingaenge() * element->getLastKapazitaet();     //Berechnung c_last
 					}
-					else{   //wenn Flipflop...
+					else{   //wenn Flipflop...blalalalalalalalalalalalalalalalalalalalalalalal
 						c_last += element->getEingaenge() * element->getLastKapazitaet() + 1 * dynamic_cast<Flipflop*>(element)->getLastKapazitaetClock();  //Berechnung c_last
 					}
 			}

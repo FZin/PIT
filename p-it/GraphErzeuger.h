@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GRAPHERZEUGER_H
+#define GRAPHERZEUGER_H
 
 #include <iostream>
 #include <string>
@@ -24,4 +25,5 @@ public:
 	void graphBau( Bibliothek* bib, Signal* sig, short anzahlSig );
 	void ausgabeGraphenstruktur();
 };
+#endif
 

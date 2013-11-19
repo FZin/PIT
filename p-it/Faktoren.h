@@ -1,12 +1,10 @@
+#ifndef FAKTOREN_H
+#define FAKTOREN_H
 
-#pragma once
 #include "itiv_win_drv.h"
 
 class Faktoren
 {
-public:
-	Faktoren();
-	virtual ~Faktoren();
 private:
 	double spannung;
 	double temperatur;
@@ -22,6 +20,8 @@ private:
 	ItivDev_Config* DevPtr;
 	
 public:
+	Faktoren();
+	virtual ~Faktoren();
 	void ausgabeFaktoren();
 	double getSpannung();
 	double getTemperatur();
@@ -34,4 +34,5 @@ public:
 	bool InfoFromItivDevice();
 	double debugVar;
 };
+#endif
 

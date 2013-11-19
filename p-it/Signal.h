@@ -17,10 +17,7 @@ private:
 	string ziele;
 	int anzahlZiele;
 
-	
-
 public:
-	
 	int getAnzahlZiele() { return anzahlZiele; };
 	signalTypen getSignalTyp() { return signalTyp; };
 	string getQuelle() { return quelle; };
@@ -37,8 +34,5 @@ public:
 	//Destruktor
 	~Signal();
 
-
-
 };
-
 #endif

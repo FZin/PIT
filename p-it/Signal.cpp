@@ -1,8 +1,8 @@
 #include "Signal.h"
 
-string Signal::getZiel(int pos) {
-
-	pos = (pos-1)*4;
+string Signal::getZiel(int pos)
+{
+	pos = (pos - 1) * 4;
 	string ergebnis = ziele.substr(pos, 4);
 	return ergebnis;
 
@@ -21,15 +21,16 @@ string Signal::getZiel(int pos) {
 
 };
 
-void Signal::zielHinzufuegen(string gatterName, int pos) {
-	if(ziele=="NULL") {
-	ziele="********************";
+void Signal::zielHinzufuegen(string gatterName, int pos) 
+{
+	if (ziele=="NULL") {
+	ziele = "********************";
 	}
 
 	//debug
 	//cout<<"gattername:"<<gatterName<<endl<<"pos"<<pos<<endl;
 
-	pos = (pos-1)*4;
+	pos = (pos - 1) * 4;
 	ziele.replace(pos, 4, gatterName);
 	anzahlZiele++;
 
@@ -58,16 +59,15 @@ void Signal::zielHinzufuegen(string gatterName, int pos) {
 };
 
 
-Signal::Signal() {
+Signal::Signal() 
+{
 	signalTyp = unbekannt;
 	quelle = "NULL";
 	quellenTyp = "NULL";
 	ziele = "NULL";
 	anzahlZiele = 0;
-	
-
 };
 
-Signal::~Signal() {
-	
+Signal::~Signal() 
+{
 };

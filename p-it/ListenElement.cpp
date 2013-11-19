@@ -1,10 +1,11 @@
 #include "ListenElement.h"
 
-ListenElement::ListenElement() {
+ListenElement::ListenElement() 
+{
 	schaltwerkElement = NULL;
 	next = NULL;
 };
 
-ListenElement::~ListenElement() {
-
+ListenElement::~ListenElement() 
+{
 };

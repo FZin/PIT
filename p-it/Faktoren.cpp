@@ -1,6 +1,6 @@
 
 #include "Faktoren.h"
-#include <iostream>
+
 //#include <iomanip>
 using namespace std;
 
@@ -13,7 +13,8 @@ Faktoren::Faktoren()
 	spannungFaktor = 0.0;
 	temperaturFaktor = 0.0;
 	prozessFaktor = 0.0;
-	debugVar = 0.0;
+	debugVar = false;
+	//debugVar = !(InfoFromItivDevice()); //Auskommentiert, damit sich das Programm ohne ITIVDevice ausführen lässt. Anderenfalss müssen sowohl ITIVDevice als auch VS als Admin gestartet werden.
 }
 
 
@@ -141,40 +142,54 @@ bool Faktoren::setProzess(short prozess)
 
 bool Faktoren::InfoFromItivDevice()
 {
+	ItivDev_Config* DevPtr;
 	DevPtr = ItivDev_GetConfigByName("Global\\ITIV_WindowsDevice");
+	//volatile uint32_t* baseAddr = (uint32_t*)DevPtr->BaseAddress; //Caste die BaseAdresse als uint32 um den gesamten Speicherbereich ansprechen zu können
+	//volatile uint32_t* reg_ctrl = baseAddr;
+	//volatile uint32_t* reg_stat = baseAddr + 1;
+	//volatile uint32_t* reg_data = baseAddr + 2;
 	double neuerWert;
 	int neuerInt;
-	bool err;
+	bool err = false;
 	for (int i = 1; i < 4; i++){
+		err = false;
 		while (!err){
-			err = false;
-			*((int*)DevPtr->BaseAddress + CTRL_REG) = 0x0;
-			while (!(*(int*)DevPtr->BaseAddress + STAT_REG == 0x01000000));
-			*((int*)DevPtr->BaseAddress + CTRL_REG) = i;
-			*((int*)DevPtr->BaseAddress + CTRL_REG) = 0x100 + i;
-			while (*(int*)DevPtr->BaseAddress + STAT_REG == 0x100);
-			if (*(int*)DevPtr->BaseAddress + STAT_REG == 0x10000){
+			*(int*)(DevPtr->BaseAddress + CTRL_REG + 1) |= ~(1 << 0);
+			while (!(*(int*)(DevPtr->BaseAddress + STAT_REG + 3) & 0x01)){
+				//cout << "Err1";
+				//system("pause");
+			}
+			*(int*)(DevPtr->BaseAddress + CTRL_REG) = i;
+			*(int*)(DevPtr->BaseAddress + CTRL_REG + 1) |= (1 << 0);
+			while (*(int*)(DevPtr->BaseAddress + STAT_REG + 1) & 0x01){
+				//cout << "Err2";
+				//system("pause");
+			}
+			if (*(int*)(DevPtr->BaseAddress + STAT_REG + 2) & 0x01){
 				switch (i)
 				{
 				case 1:
-					neuerWert = *((double*)DevPtr->BaseAddress + DATA_REG);
-					err = (setSpannung(neuerWert));
+					neuerWert = *(double*)(DevPtr->BaseAddress + DATA_REG); //Greift nur auf die ersten 8bit des DATAREG zu, ist aber von ausreichender Genauigkeit 
+					err = setSpannung(neuerWert);
 					break;
 				case 2:
-					neuerInt = *((int*)DevPtr->BaseAddress + DATA_REG);
-					err = (setTemperatur(neuerInt));
+					neuerInt = *(int*)(DevPtr->BaseAddress + DATA_REG);
+					err = setTemperatur(neuerInt);
 					break;
 				case 3:
-					neuerInt = *((int*)DevPtr->BaseAddress + DATA_REG);
-					err = (setProzess(neuerInt));
+					neuerInt = *(int*)(DevPtr->BaseAddress + DATA_REG);
+					err = setProzess(neuerInt +1);
 				default:
 					break;
+				}
+			}else{
+				//cout << "Fehler";
+				if (*((int*)DevPtr->BaseAddress + STAT_REG) & 0x01){
+					cout << "Error";
 				}
 			}
 		}
 	}
-	
-	
-	
-	return false;
+	ItivDev_ReleaseDevice(DevPtr);	
+	return true;
 }

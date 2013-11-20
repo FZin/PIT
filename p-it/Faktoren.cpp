@@ -154,16 +154,11 @@ bool Faktoren::InfoFromItivDevice()
 		err = false;
 		while (!err){
 			*(int*)(DevPtr->BaseAddress + CTRL_REG + 1) |= ~(1 << 0);
-			while (!(*(int*)(DevPtr->BaseAddress + STAT_REG + 3) & 0x01)){
-				//cout << "Err1";
-				//system("pause");
-			}
+			while (!(*(int*)(DevPtr->BaseAddress + STAT_REG + 3) & 0x01));
 			*(int*)(DevPtr->BaseAddress + CTRL_REG) = i;
 			*(int*)(DevPtr->BaseAddress + CTRL_REG + 1) |= (1 << 0);
-			while (*(int*)(DevPtr->BaseAddress + STAT_REG + 1) & 0x01){
-				//cout << "Err2";
-				//system("pause");
-			}
+			while (*(int*)(DevPtr->BaseAddress + STAT_REG + 1) & 0x01);
+			_sleep(100); // Warte 100ms, da es sonst vorkommen kann, dass das DONE-Bit noch nicht gesetzt ist.
 			if (*(int*)(DevPtr->BaseAddress + STAT_REG + 2) & 0x01){
 				switch (i)
 				{
@@ -182,7 +177,6 @@ bool Faktoren::InfoFromItivDevice()
 					break;
 				}
 			}else{
-				//cout << "Fehler";
 				if (*((int*)DevPtr->BaseAddress + STAT_REG) & 0x01){
 					cout << "Error";
 				}

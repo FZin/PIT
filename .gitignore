@@ -27,6 +27,7 @@ bld/
 *.VisualState.xml
 TestResult.xml
 
+
 *_i.c
 *_p.c
 *_i.h
@@ -178,3 +179,8 @@ Desktop.ini
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
+
+#Bis auf die ITIV-Device Dateien
+!itiv_win_drv.obj
+!ITIV_Device.exe
+!msvcr100d.dll

@@ -132,9 +132,9 @@ void Bibliothek::dateiAuswerten(void)
 			}
 			bibElemente.push_back(tmp); //s.o.
 		}
-		else{
+		/*else{
 			readError();
-		}
+		} */
 	}
 	bib.close();
 }

@@ -20,18 +20,12 @@ void LaufzeitAnalysator::init(Faktoren* f, ListenElement* s)
 //Berechnung der Einzelgatterlaufzeit und anschließendes Speichern im Attribut LaufzeitEinzelgatter der Klasse SchaltwerkElement
 void LaufzeitAnalysator::berechnungLaufzeitEinzelgatter(void) 
 {
-	short c_last = 0;
-	for (ListenElement* node = startElement; node != NULL; node = node->getNextListenElement()) {   //Zeiger auf Anfang verkettete Liste, durchlaufen aller Elemente der Liste
+	for (ListenElement* node = startElement; node != NULL; node = node->getNextListenElement()) { //Zeiger auf Anfang verkettete Liste, durchlaufen aller Elemente der Liste
+		short c_last = 0;
 		int nachfolger = node->getSchaltwerkElement()->getAnzahlNachfolger();     //Ermittlung der Anzahl von Nachfolgegattern durch entsprechende Funktion
 		if (nachfolger != 0) {   //Überprüfung ob aktuelles Gatter Ausgangselement ist (würde bedeuten keine Nachfolgegatter)
 			for (int i = 0; i < nachfolger; i++) {   // Berechnung von c_last für jedes Nachfolgegatter
-				GatterTyp* element = node->getSchaltwerkElement()->getNachfolger(i)->getTyp(); //Ermittlung des Typs des Elementes (Gatter/Flipflop)
-					if (element->getIsFlipflop() == false) {   //wenn Gatter...
-						c_last += element->getEingaenge() * element->getLastKapazitaet();     //Berechnung c_last
-					}
-					else {   //wenn Flipflop...
-						c_last += element->getEingaenge() * element->getLastKapazitaet() + 1 * dynamic_cast<Flipflop*>(element)->getLastKapazitaetClock();  //Berechnung c_last
-					}
+				c_last += node->getSchaltwerkElement()->getNachfolger(i)->getTyp()->getLastKapazitaet(); //Ermittlung des Typs des Elementes (Gatter/Flipflop)	
 			}
 		}
 		double spgFaktor;

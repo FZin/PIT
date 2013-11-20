@@ -135,8 +135,8 @@ void Faktoren::getFaktoren( double& spgFaktor, double& tmpFaktor, double& przFak
 
 
 /*
-Setzt die Spannung und berechnet den Spannungsfaktor
-Gibt false zurück, falls die Spannung nicht in definierten Grenzen liegt
+Setzt die Spannung und berechnet den Spannungsfaktor.
+Gibt false zurück, falls die Spannung nicht in definierten Grenzen liegt.
 */
 
 bool Faktoren::setSpannung( double spannung ) {
@@ -146,8 +146,8 @@ bool Faktoren::setSpannung( double spannung ) {
 
 
 /*
-Setzt die Temperatur und berechnet den Temperaturfaktor
-Gibt false zurück, falls die Temperatur nicht in definierten Grenzen liegt
+Setzt die Temperatur und berechnet den Temperaturfaktor.
+Gibt false zurück, falls die Temperatur nicht in definierten Grenzen liegt.
 */
 
 bool Faktoren::setTemperatur( double temperatur ) {
@@ -155,11 +155,19 @@ bool Faktoren::setTemperatur( double temperatur ) {
 	return berechneTemperaturFaktor( this->temperatur );
 }
 
+/*
+Setzt dden Prozess und berechnet den Prozessfaktorfaktor.
+Gibt false zurück, falls der Prozess nicht existiert.
+*/
 
 bool Faktoren::setProzess( short prozess ) {
 	this->prozess = prozess;
 	return berechneProzessFaktor( this->prozess );
 }
+
+/*
+Misst mit Hilfe des ITIVDevices Spannung, Temperatur und Prozess. VS und das Device müssen mit Administratorechten gestartet werden
+*/
 
 bool Faktoren::InfoFromItivDevice() {
 	ItivDev_Config* DevPtr;

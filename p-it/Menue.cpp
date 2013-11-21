@@ -249,7 +249,11 @@ void Menue::schaltwerkMenue(){
 };
 void Menue::analyse(){
 	meinGraphErzeuger.graphBau(&meineBibliothek, meinSignalListeErzeuger.getSignale() , meinSignalListeErzeuger.getAnzahlSignale());
-
+	meinLaufzeitanalysator.reset();
+	meinLaufzeitanalysator.init(&meineFaktoren, meinGraphErzeuger.getStartElement()); //Startelement nur pseudo???
+	meinLaufzeitanalysator.berechnungLaufzeitEinzelgatter();
+	meinLaufzeitanalysator.dfs(meinGraphErzeuger.getStartElement());
+	//Aufruf LaufzeitAnalysator
 	system("pause");
 	start();
 	

@@ -4,6 +4,11 @@
 
 LaufzeitAnalysator::LaufzeitAnalysator()
 {
+	frequenz = 0;
+	laufzeitUebergangspfad = 0.0;
+	laufzeitAusgangspfad = 0.0;
+	uebergangspfad = "";
+	ausgangspfad = "";
 }
 
 LaufzeitAnalysator::~LaufzeitAnalysator()
@@ -34,4 +39,73 @@ void LaufzeitAnalysator::berechnungLaufzeitEinzelgatter(void)
 		faktoren->getFaktoren(spgFaktor, tmpFaktor, przFaktor);  //Kv, Kp, Kt aus Klasse Faktoren holen
 		node->getSchaltwerkElement()->setLaufzeitEinzelgatter((node->getSchaltwerkElement()->getTyp()->getGrundlaufzeit() + startElement->getSchaltwerkElement()->getTyp()->getLastFaktor() * c_last / 1000) * spgFaktor * tmpFaktor * przFaktor); //Formel umsetzen (auf Einheiten achten!)
 	}
+}
+
+
+void LaufzeitAnalysator::dfs_Visit(SchaltwerkElement* k, SchaltwerkElement* s)
+{
+	
+	for(unsigned int i = 1;i<=k->getAnzahlNachfolger();i++) { //Gibt getNachfolger(i) für zu große i NULL zurück?
+		SchaltwerkElement* v = k->getNachfolger(i);
+		if( v->getTyp()->getIsFlipflop()) {
+			if( laufzeitUebergangspfad < DFS_Zwischenspeicher[k].PfadLaufzeit + k->getLaufzeitEinzelgatter()) {
+				laufzeitUebergangspfad = DFS_Zwischenspeicher[k].PfadLaufzeit + k->getLaufzeitEinzelgatter();
+				uebergangspfad += k->getName() + " -> ";
+			}else if(DFS_Zwischenspeicher[v].PfadLaufzeit < DFS_Zwischenspeicher[k].PfadLaufzeit + k->getLaufzeitEinzelgatter()) {
+				if(( DFS_Zwischenspeicher[v].PfadLaufzeit != 0 || v == s ) && ( DFS_Zwischenspeicher[v].VaterElement != k )) {
+					DFS_Zwischenspeicher[v].VaterElement = k;
+					if( zyklensuche( v )) {
+						fehlerbehandlung();
+						return;
+					}
+				}
+				DFS_Zwischenspeicher[v].PfadLaufzeit = DFS_Zwischenspeicher[k].PfadLaufzeit + k->getLaufzeitEinzelgatter();
+				DFS_Zwischenspeicher[v].VaterElement = k;
+				dfs_Visit(v,s);
+			}
+		}
+		if( k->getIsAusgangsElement() && ( laufzeitAusgangspfad < (DFS_Zwischenspeicher[k].PfadLaufzeit + k->getLaufzeitEinzelgatter()))) {
+			laufzeitAusgangspfad = DFS_Zwischenspeicher[k].PfadLaufzeit + k->getLaufzeitEinzelgatter();
+			ausgangspfad += k->getName() + " -> ";
+		}
+	}
+}
+
+
+void LaufzeitAnalysator::dfs(ListenElement* s) {
+	for( ListenElement* i = s; i != NULL; i = i->getNextListenElement()) {
+		DFS_Daten dfsd;
+		dfsd.PfadLaufzeit = 0;
+		dfsd.VaterElement = NULL;
+		DFS_Zwischenspeicher[i->getSchaltwerkElement] = dfsd;
+	}
+	dfs_Visit(s->getSchaltwerkElement(),s->getSchaltwerkElement());
+}
+
+
+bool LaufzeitAnalysator::zyklensuche(SchaltwerkElement* v)
+{
+	for(SchaltwerkElement* s= DFS_Zwischenspeicher[v].VaterElement; !(s->getIsEingangsElement); s = DFS_Zwischenspeicher[s].VaterElement) {
+		if ( v == s ){
+			return true;
+		}
+	}
+	return false;
+}
+
+
+void LaufzeitAnalysator::fehlerbehandlung(void)
+{
+	cout << "FEHLAAA" << endl;
+	system("pause");
+}
+
+
+void LaufzeitAnalysator::reset(void)
+{
+	frequenz = 0;
+	laufzeitUebergangspfad = 0.0;
+	laufzeitAusgangspfad = 0.0;
+	uebergangspfad = "";
+	ausgangspfad = "";
 }

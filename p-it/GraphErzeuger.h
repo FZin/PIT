@@ -23,6 +23,7 @@ public:
 	~GraphErzeuger();
 	void graphBau( Bibliothek* bib, Signal* sig, short anzahlSig );
 	void ausgabeGraphenstruktur();
+	ListenElement* getStartElement(void);
 };
 #endif
 

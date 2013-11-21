@@ -27,6 +27,8 @@ bld/
 *.VisualState.xml
 TestResult.xml
 
+#WinMerge BackUp-Dateien
+*.bak
 
 *_i.c
 *_p.c

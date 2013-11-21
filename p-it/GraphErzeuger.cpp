@@ -276,3 +276,8 @@ void GraphErzeuger::ausgabeGraphenstruktur()
 
 
 };
+
+ListenElement* GraphErzeuger::getStartElement(void)
+{
+	return startElement;
+}

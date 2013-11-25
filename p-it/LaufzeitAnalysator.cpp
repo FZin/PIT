@@ -77,7 +77,7 @@ void LaufzeitAnalysator::dfs(ListenElement* s) {
 		DFS_Daten dfsd;
 		dfsd.PfadLaufzeit = 0;
 		dfsd.VaterElement = NULL;
-		DFS_Zwischenspeicher[i->getSchaltwerkElement] = dfsd;
+		DFS_Zwischenspeicher[i->getSchaltwerkElement()] = dfsd;
 	}
 	dfs_Visit(s->getSchaltwerkElement(),s->getSchaltwerkElement());
 }
@@ -85,7 +85,7 @@ void LaufzeitAnalysator::dfs(ListenElement* s) {
 
 bool LaufzeitAnalysator::zyklensuche(SchaltwerkElement* v)
 {
-	for(SchaltwerkElement* s= DFS_Zwischenspeicher[v].VaterElement; !(s->getIsEingangsElement); s = DFS_Zwischenspeicher[s].VaterElement) {
+	for(SchaltwerkElement* s= DFS_Zwischenspeicher[v].VaterElement; !(s->getIsEingangsElement()); s = DFS_Zwischenspeicher[s].VaterElement) {
 		if ( v == s ){
 			return true;
 		}

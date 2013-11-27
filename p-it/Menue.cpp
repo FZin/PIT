@@ -37,6 +37,7 @@ void Menue::start() {
 	cin.sync();
 	cin>>eingabe;
 	
+	bool erfolgreich; //markiert
 
 	switch(eingabe){
 	case 1:
@@ -53,6 +54,12 @@ void Menue::start() {
 		break;
 	case 5:
 		exit(0); break;
+	case 6:
+		erfolgreich = meineBibliothek.pfadEinlesen("C:\\Users\\Fabian\\Documents\\pit\\bib.txt");
+		meineBibliothek.dateiAuswerten();
+		meinSignalListeErzeuger.setPfad("C:\\Users\\Fabian\\Documents\\pit\\csd.txt");
+		start();
+		break;
 	default:
 		start();
 		break;
@@ -129,6 +136,9 @@ void Menue::faktorenMenue()
 			meineFaktoren.debugVar = false;
 		}else{
 			meineFaktoren.debugVar = true;
+			meineFaktoren.setProzess(1);
+			meineFaktoren.setSpannung(1.2);
+			meineFaktoren.setTemperatur(55);//DEBUG
 		}
 		break;
 	case 6:
@@ -246,7 +256,6 @@ void Menue::schaltwerkMenue(){
 	case 5:
 		start();
 		break;
-
 	default:
 		schaltwerkMenue();
 		break;
@@ -256,11 +265,12 @@ void Menue::schaltwerkMenue(){
 void Menue::analyse(){
 	meinGraphErzeuger.graphBau(&meineBibliothek, meinSignalListeErzeuger.getSignale() , meinSignalListeErzeuger.getAnzahlSignale());
 	meinLaufzeitanalysator.reset();
-	meinLaufzeitanalysator.init(&meineFaktoren, meinGraphErzeuger.getStartElement()); //Startelement nur pseudo???
-	meinLaufzeitanalysator.berechnungLaufzeitEinzelgatter();
-	meinLaufzeitanalysator.dfs(meinGraphErzeuger.getStartElement());
+	meinLaufzeitanalysator.init(&meineFaktoren, meinGraphErzeuger.getStartElement());
+	bool egal = meinLaufzeitanalysator.analyse();
+	//meinLaufzeitanalysator.berechnungLaufzeitEinzelgatter();
+	//meinLaufzeitanalysator.dfs(meinGraphErzeuger.getStartElement());
 	//Aufruf LaufzeitAnalysator
-	system("pause");
+	//system("pause");
 	start();
 	
 };

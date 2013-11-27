@@ -1,0 +1,29 @@
+// Diese Schaltnetzdatei enthält einen
+// kaskadierenden Rückwertzzähler
+
+ARCHITECTURE schaltwerk2 OF Informationstechnik IS
+
+ENTITY
+INPUT s001;
+OUTPUT s005,s014,s015,s016,s017;
+SIGNALS s002,s003,s004,s006,s007,s008,s009,s010,s011,s012,s013;
+CLOCK clk, 1500 MHz;
+
+BEGIN
+g001:dff(s013,clk,s009);
+g002:and2(s001,s006,s002);
+g003:xor2(s003,s008,s012);
+g004:and2(s002,s007,s003);
+g005:inv1a(s006,s014);
+g006:dff(s011,clk,s007);
+g007:and2(s004,s009,s005);
+g008:xor2(s002,s007,s011);
+g009:inv1a(s009,s017);
+g010:inv1a(s008,s016);
+g011:xor2(s004,s009,s013);
+g012:inv1a(s007,s015);
+g013:and2(s003,s008,s004);
+g014:dff(s010,clk,s006);
+g015:xor2(s001,s006,s010);
+g016:dff(s012,clk,s008);
+END

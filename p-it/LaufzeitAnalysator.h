@@ -33,5 +33,6 @@ public:
 	bool zyklensuche(SchaltwerkElement* v);
 	void fehlerbehandlung(void);
 	void reset(void);
+	bool analyse(void);
 };
 #endif

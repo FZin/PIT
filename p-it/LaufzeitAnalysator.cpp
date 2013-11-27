@@ -29,44 +29,54 @@ void LaufzeitAnalysator::berechnungLaufzeitEinzelgatter(void)
 		short c_last = 0;
 		int nachfolger = node->getSchaltwerkElement()->getAnzahlNachfolger();     //Ermittlung der Anzahl von Nachfolgegattern durch entsprechende Funktion
 		if (nachfolger != 0) {   //Überprüfung ob aktuelles Gatter Ausgangselement ist (würde bedeuten keine Nachfolgegatter)
-			for (int i = 0; i < nachfolger; i++) {   // Berechnung von c_last für jedes Nachfolgegatter
+			for (int i = 1; i <= nachfolger; i++) {   // Berechnung von c_last für jedes Nachfolgegatter
 				c_last += node->getSchaltwerkElement()->getNachfolger(i)->getTyp()->getLastKapazitaet(); //Ermittlung des Typs des Elementes (Gatter/Flipflop)	
+				//cout << c_last << endl;
 			}
 		}
 		double spgFaktor;
 		double tmpFaktor;
 		double przFaktor;
 		faktoren->getFaktoren(spgFaktor, tmpFaktor, przFaktor);  //Kv, Kp, Kt aus Klasse Faktoren holen
-		node->getSchaltwerkElement()->setLaufzeitEinzelgatter((node->getSchaltwerkElement()->getTyp()->getGrundlaufzeit() + startElement->getSchaltwerkElement()->getTyp()->getLastFaktor() * c_last / 1000) * spgFaktor * tmpFaktor * przFaktor); //Formel umsetzen (auf Einheiten achten!)
+		node->getSchaltwerkElement()->setLaufzeitEinzelgatter((node->getSchaltwerkElement()->getTyp()->getGrundlaufzeit() + node->getSchaltwerkElement()->getTyp()->getLastFaktor() * c_last / 1000.0) * spgFaktor * tmpFaktor * przFaktor); //Formel umsetzen (auf Einheiten achten!)
+		//cout << node->getSchaltwerkElement()->getName() << ":" << node->getSchaltwerkElement()->getLaufzeitEinzelgatter() << endl;
+		cout << node->getSchaltwerkElement()->getName() << ":" << node->getSchaltwerkElement()->getTyp()->getLastKapazitaet() << endl;
 	}
+	system("pause");
 }
 
 
 void LaufzeitAnalysator::dfs_Visit(SchaltwerkElement* k, SchaltwerkElement* s)
 {
-	
 	for(unsigned int i = 1;i<=k->getAnzahlNachfolger();i++) { //Gibt getNachfolger(i) für zu große i NULL zurück?
 		SchaltwerkElement* v = k->getNachfolger(i);
 		if( v->getTyp()->getIsFlipflop()) {
-			if( laufzeitUebergangspfad < DFS_Zwischenspeicher[k].PfadLaufzeit + k->getLaufzeitEinzelgatter()) {
+			if( laufzeitUebergangspfad < (DFS_Zwischenspeicher[k].PfadLaufzeit + k->getLaufzeitEinzelgatter())) {
 				laufzeitUebergangspfad = DFS_Zwischenspeicher[k].PfadLaufzeit + k->getLaufzeitEinzelgatter();
-				uebergangspfad += k->getName() + " -> ";
-			}else if(DFS_Zwischenspeicher[v].PfadLaufzeit < DFS_Zwischenspeicher[k].PfadLaufzeit + k->getLaufzeitEinzelgatter()) {
-				if(( DFS_Zwischenspeicher[v].PfadLaufzeit != 0 || v == s ) && ( DFS_Zwischenspeicher[v].VaterElement != k )) {
-					DFS_Zwischenspeicher[v].VaterElement = k;
-					if( zyklensuche( v )) {
-						fehlerbehandlung();
-						return;
-					}
+				uebergangspfad = "";
+				for(SchaltwerkElement* s = k; s!=NULL ; s = DFS_Zwischenspeicher[s].VaterElement) {
+					uebergangspfad = s->getName() + " -> " + uebergangspfad;
 				}
-				DFS_Zwischenspeicher[v].PfadLaufzeit = DFS_Zwischenspeicher[k].PfadLaufzeit + k->getLaufzeitEinzelgatter();
-				DFS_Zwischenspeicher[v].VaterElement = k;
-				dfs_Visit(v,s);
+				uebergangspfad += v->getName();
 			}
+		}else if(DFS_Zwischenspeicher[v].PfadLaufzeit < (DFS_Zwischenspeicher[k].PfadLaufzeit + k->getLaufzeitEinzelgatter())) {
+			if(( DFS_Zwischenspeicher[v].PfadLaufzeit != 0 || v == s ) && ( DFS_Zwischenspeicher[v].VaterElement != k )) {
+				DFS_Zwischenspeicher[v].VaterElement = k;
+				if( zyklensuche( v )) {
+					fehlerbehandlung();
+					return;
+				}
+			}
+			DFS_Zwischenspeicher[v].PfadLaufzeit = DFS_Zwischenspeicher[k].PfadLaufzeit + k->getLaufzeitEinzelgatter();
+			DFS_Zwischenspeicher[v].VaterElement = k;
+			dfs_Visit(v,s);
 		}
-		if( k->getIsAusgangsElement() && ( laufzeitAusgangspfad < (DFS_Zwischenspeicher[k].PfadLaufzeit + k->getLaufzeitEinzelgatter()))) {
-			laufzeitAusgangspfad = DFS_Zwischenspeicher[k].PfadLaufzeit + k->getLaufzeitEinzelgatter();
-			ausgangspfad += k->getName() + " -> ";
+	}
+	if( k->getIsAusgangsElement() && ( laufzeitAusgangspfad < (DFS_Zwischenspeicher[k].PfadLaufzeit + k->getLaufzeitEinzelgatter()))) {
+		laufzeitAusgangspfad = DFS_Zwischenspeicher[k].PfadLaufzeit + k->getLaufzeitEinzelgatter();
+		ausgangspfad = "";
+		for(SchaltwerkElement* s = k; s!=NULL ; s = DFS_Zwischenspeicher[s].VaterElement) {
+			ausgangspfad = s->getName() + " -> " + ausgangspfad;
 		}
 	}
 }
@@ -108,4 +118,27 @@ void LaufzeitAnalysator::reset(void)
 	laufzeitAusgangspfad = 0.0;
 	uebergangspfad = "";
 	ausgangspfad = "";
+}
+
+
+bool LaufzeitAnalysator::analyse(void)
+{
+	berechnungLaufzeitEinzelgatter();
+	for(ListenElement* l = startElement; l!=NULL; l=l->getNextListenElement()) {
+		if( (l->getSchaltwerkElement()->getIsEingangsElement()) || (l->getSchaltwerkElement()->getTyp()->getIsFlipflop())) {
+			dfs(l);
+		}
+	}
+	cout << "Laengster Pfad im Ueberfuehrungsschaltnetz:" << endl;
+	cout << uebergangspfad << endl;
+	cout << "Maximale Laufzeit der Pfade im Ueberfuehrungsschaltnetz: " << laufzeitUebergangspfad << " ps" << endl << endl;
+	cout << "Laengster Pfad im Ausgangsschaltnetz:" << endl;
+	cout << ausgangspfad << endl;
+	cout << "Maximale Laufzeit der Pfade im Ausgangsschaltnetz: " << laufzeitAusgangspfad << " ps" << endl << endl;
+	cout << "----------------------------------------" << endl;
+	frequenz = 1/(laufzeitUebergangspfad+26)*1000000; // Setuptime einlesen!!
+	cout << "Die maximal zulaessige Frequenz fuer das Schaltnetz/-werk betraegt: " << frequenz << "MHz" << endl;
+	system("pause");
+
+	return false;
 }

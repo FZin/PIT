@@ -163,21 +163,22 @@ void Menue::bibliothekMenue(){
 	bool erfolgreich;
 	switch(eingabe){
 	case 1:
-		cout<<"Bitte geben Sie den gewuenschten Pfad ein:"<<endl;
+		cout<<"Bitte geben Sie den gewuenschten Pfad ein ('EXIT' zum abbrechen):"<<endl;
 		cin.clear();
 		cin.sync();
 		cin>>pfad;
-		erfolgreich = meineBibliothek.pfadEinlesen(pfad);
-		if(erfolgreich == false ) { 
-			cout<<"Der Pfad konnte nicht eingelesen werden"<<endl;
-		    cout<<"Enter druecken zum fortfahren"<<endl;
-		    cin.clear();
-		    cin.sync();
-		} else {
-			meineBibliothek.dateiAuswerten();
+		
+		if(pfad != "EXIT" && pfad != "exit" && pfad != "Exit") {
+			erfolgreich = meineBibliothek.pfadEinlesen(pfad);
+			if(erfolgreich == false ) { 
+				cout<<"Der Pfad konnte nicht eingelesen werden"<<endl;
+				cout<<"Enter druecken zum fortfahren"<<endl;
+				cin.clear();
+				cin.sync();
+			} else {
+				meineBibliothek.dateiAuswerten();
+			}
 		}
-
-
 		bibliothekMenue();
 		break;
 	case 2:

@@ -28,6 +28,7 @@ public:
 	~SignalListeErzeuger();
 	Signal* getSignale() {return signale;};
 	short getAnzahlSignale(){ return anzahlSignale;};
+	long getFrequenz(){return frequenz;};
 
 };
 #endif

@@ -71,7 +71,7 @@ void Menue::faktorenMenue()
 	cout<<"(1) Spannung [Volt]: "<< meineFaktoren.getSpannung() << " aendern" <<endl<<endl;
 	cout<<"(2) Temperatur [Grad Celsius] : "<< meineFaktoren.getTemperatur()<< " aendern"<<endl<<endl;
 	cout<<"(3) Prozess (1=slow, 2=typical, 3=fast) : "<< meineFaktoren.getProzess()<< " aendern"<<endl<<endl;
-	cout<<"(4) Ausgabe errechneter Faktoren "<<endl<<endl; //muss noch gemacht werden! Funktioniert nicht wie in oberen Fällen!
+	cout<<"(4) Ausgabe errechneter Faktoren "<<endl<<endl;
 	cout<<"(5) Debugmodus: ";
 	if (meineFaktoren.debugVar){
 		cout<< "ausschalten" << endl<<endl;

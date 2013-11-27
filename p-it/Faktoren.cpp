@@ -105,6 +105,7 @@ Schreibt die berechneten Faktoren in die Standardausgabe
 
 void Faktoren::ausgabeFaktoren() {
 	cout << " KV: " << spannungFaktor << "\|KT: " << temperaturFaktor << "\|KP: " << prozessFaktor << endl;
+	system("pause");
 }
 
 

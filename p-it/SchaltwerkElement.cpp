@@ -1,5 +1,6 @@
 #include "SchaltwerkElement.h"
 
+//Konstruktor
 SchaltwerkElement::SchaltwerkElement(GatterTyp* gTyp) 
 { 
 	name = "";
@@ -13,6 +14,7 @@ SchaltwerkElement::SchaltwerkElement(GatterTyp* gTyp)
 
 };
 
+//Destruktor
 SchaltwerkElement::~SchaltwerkElement() 
 {
 	if (nachfolgerElement != NULL) { 
@@ -21,6 +23,7 @@ SchaltwerkElement::~SchaltwerkElement()
 
 };
 
+
 SchaltwerkElement* SchaltwerkElement::getNachfolger(int pos) 
 {
 	SchaltwerkElement* temp = nachfolgerElement[pos-1];
@@ -28,6 +31,7 @@ SchaltwerkElement* SchaltwerkElement::getNachfolger(int pos)
 	return temp;
 };
 
+//fuegt Nachfolger hinzu
 void SchaltwerkElement::nachfolgerHinzufuegen(SchaltwerkElement* schaltwerkElement, int pos) 
 {
 	if (pos == anzahlNachfolger + 1) {

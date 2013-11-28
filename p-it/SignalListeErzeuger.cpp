@@ -1,7 +1,7 @@
 #include "SignalListeErzeuger.h"
 
 
-
+//konstruktor
 SignalListeErzeuger::SignalListeErzeuger() 
 {
 	signale = NULL;
@@ -10,6 +10,7 @@ SignalListeErzeuger::SignalListeErzeuger()
 	frequenz = 0;
 };
 
+//Destruktor
 SignalListeErzeuger::~SignalListeErzeuger() 
 {
 	if (signale != NULL) {
@@ -18,6 +19,7 @@ SignalListeErzeuger::~SignalListeErzeuger()
 	}
 };
 
+//Gibt die Textdatei in der Konsole aus
 void SignalListeErzeuger::ausgabeSchaltnetzdatei() 
 {
 	string Schaltnetzdatei = "";
@@ -39,6 +41,7 @@ void SignalListeErzeuger::ausgabeSchaltnetzdatei()
 
 };
 
+//der Pfad zur datei wird gesetzt, die Textdatei wird ausgelesen, die Signalliste wird erstellt + ueberpruefung auf Kurzschluesse
 void SignalListeErzeuger::setPfad(string pfad) 
 {
 	datei=pfad;
@@ -94,7 +97,7 @@ void SignalListeErzeuger::setPfad(string pfad)
 
 		}
 
-	
+		//Datei auf Schlüsselworte untersuchen
 		int posStart = temp.find("ARCHITECTURE");
 		int posEntity = temp.find("ENTITY", posStart);
 		int posInput = temp.find("INPUT", posEntity);
@@ -213,7 +216,7 @@ void SignalListeErzeuger::setPfad(string pfad)
 	
 
 		
-		//unnötiges löschen
+		//unnötiges loeschen (nur noch gatterliste wird benoetigt)
 		if ((temp.find("g", posBegin)) < temp.size() && error == false) {
 			temp = temp.substr( temp.find("g", posBegin), posEnd - temp.find("g", posBegin));
 		} else {
@@ -316,7 +319,7 @@ void SignalListeErzeuger::setPfad(string pfad)
 };
 
 
-
+//gibt die Signale aus
 void SignalListeErzeuger::ausgabeSignale() 
 {
 	if (anzahlSignale > 0) {

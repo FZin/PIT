@@ -1,7 +1,7 @@
 
 #include "GraphErzeuger.h"
 
-
+//Konstruktor
 GraphErzeuger::GraphErzeuger()
 {
 	bibliothek = NULL;
@@ -12,7 +12,7 @@ GraphErzeuger::GraphErzeuger()
 
 }
 
-
+//Destruktor
 GraphErzeuger::~GraphErzeuger() 
 {
 	ListenElement* lauf = startElement;
@@ -31,7 +31,7 @@ GraphErzeuger::~GraphErzeuger()
 
 };
 
-
+//erstellt den Graphen aus der Signalliste
 void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig) 
 {
 	bibliothek = bib;
@@ -148,7 +148,7 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig)
 					ziel = ziel->getNextListenElement();
 				}
 
-
+				//erstellt die Verbindungen unter den gattern, fuegt Nachfolger hinzu
 				if (ziel != NULL) {
 					temp->getSchaltwerkElement()->nachfolgerHinzufuegen(ziel->getSchaltwerkElement(), temp->getSchaltwerkElement()->getAnzahlNachfolger() + 1);
 				} else {
@@ -247,6 +247,8 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig)
 
 };
 
+
+//gibt den Erzeugten Graphen aus
 void GraphErzeuger::ausgabeGraphenstruktur()
 {
 	ListenElement* test = startElement;
@@ -276,6 +278,7 @@ void GraphErzeuger::ausgabeGraphenstruktur()
 
 
 };
+
 
 ListenElement* GraphErzeuger::getStartElement(void)
 {

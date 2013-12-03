@@ -25,7 +25,7 @@ void Bibliothek::openError(void)
 	cout << "Fehler beim Oeffnen! " << endl;
 }
 
-//Rückgabe eines Zeigers auf gesuchtes Element
+//Rückgabe eines Zeigers auf gesuchtes Element innerhalb Vektor
 GatterTyp*  Bibliothek::getBibElement(string typ)
 {
 	for (int i = 0; i != bibElemente.size(); i++) {
@@ -132,9 +132,6 @@ void Bibliothek::dateiAuswerten(void)
 			}
 			bibElemente.push_back(tmp); //s.o.
 		}
-		/*else{
-			readError();
-		} */
 	}
 	bib.close();
 }

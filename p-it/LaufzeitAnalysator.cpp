@@ -29,8 +29,8 @@ void LaufzeitAnalysator::berechnungLaufzeitEinzelgatter(void)
 		short c_last = 0;
 		int nachfolger = node->getSchaltwerkElement()->getAnzahlNachfolger();     //Ermittlung der Anzahl von Nachfolgegattern durch entsprechende Funktion
 		if (nachfolger != 0) {   //Überprüfung ob aktuelles Gatter Ausgangselement ist (würde bedeuten keine Nachfolgegatter)
-			for (int i = 1; i <= nachfolger; i++) {   // Berechnung von c_last für jedes Nachfolgegatter
-				c_last += node->getSchaltwerkElement()->getNachfolger(i)->getTyp()->getLastKapazitaet(); //Ermittlung des Typs des Elementes (Gatter/Flipflop)	
+			for (int i = 1; i <= nachfolger; i++) {   
+				c_last += node->getSchaltwerkElement()->getNachfolger(i)->getTyp()->getLastKapazitaet(); // Berechnung von c_last für jedes Nachfolgegatter und Addition aller Werte
 				//cout << c_last << endl;
 			}
 		}
@@ -38,7 +38,7 @@ void LaufzeitAnalysator::berechnungLaufzeitEinzelgatter(void)
 		double tmpFaktor;
 		double przFaktor;
 		faktoren->getFaktoren(spgFaktor, tmpFaktor, przFaktor);  //Kv, Kp, Kt aus Klasse Faktoren holen
-		node->getSchaltwerkElement()->setLaufzeitEinzelgatter((node->getSchaltwerkElement()->getTyp()->getGrundlaufzeit() + node->getSchaltwerkElement()->getTyp()->getLastFaktor() * c_last / 1000.0) * spgFaktor * tmpFaktor * przFaktor); //Formel umsetzen (auf Einheiten achten!)
+		node->getSchaltwerkElement()->setLaufzeitEinzelgatter((node->getSchaltwerkElement()->getTyp()->getGrundlaufzeit() + node->getSchaltwerkElement()->getTyp()->getLastFaktor() * c_last * 0.001) * spgFaktor * tmpFaktor * przFaktor); //Formel umsetzen (auf Einheiten achten!)
 		//cout << node->getSchaltwerkElement()->getName() << ":" << node->getSchaltwerkElement()->getLaufzeitEinzelgatter() << endl;
 		cout << node->getSchaltwerkElement()->getName() << ":" << node->getSchaltwerkElement()->getTyp()->getLastKapazitaet() << endl;
 	}
@@ -106,7 +106,7 @@ bool LaufzeitAnalysator::zyklensuche(SchaltwerkElement* v)
 
 void LaufzeitAnalysator::fehlerbehandlung(void)
 {
-	cout << "FEHLAAA" << endl;
+	cout << "FEHLER!" << endl;
 	system("pause");
 }
 

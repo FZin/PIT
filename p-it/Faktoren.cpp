@@ -14,7 +14,7 @@ Faktoren::Faktoren() {
 	temperaturFaktor = 0.0;
 	prozessFaktor = 0.0;
 	debugVar = false;
-	debugVar = !( InfoFromItivDevice()); //Auskommentiert, damit sich das Programm ohne ITIVDevice ausführen lässt. Anderenfalls müssen sowohl ITIVDevice als auch VS als Admin gestartet werden.
+	//debugVar = !( InfoFromItivDevice()); //Auskommentiert, damit sich das Programm ohne ITIVDevice ausführen lässt. Anderenfalls müssen sowohl ITIVDevice als auch VS als Admin gestartet werden.
 }
 
 

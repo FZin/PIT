@@ -312,7 +312,7 @@ void SignalListeErzeuger::setPfad(string pfad)
 			frequenz = 0;
 			cout << endl << "Fehler: Es ist ein Kurzschluss vorhanden!"<< endl;
 			system("pause");
-	
+			exit(0);
 		}
 
 	}

@@ -167,6 +167,8 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig)
 		if (( signale[i].getQuelle() == "NULL") && (signale[i].getAnzahlZiele() == 0 ) && (error == false)) {
 			error = true;
 			cout << "Es gibt ein unbenutztes Signal."<< endl << endl;
+			system("pause");
+			exit(0);
 		}
 
 
@@ -203,7 +205,8 @@ void GraphErzeuger::graphBau( Bibliothek* bib, Signal* sig, short anzahlSig)
 				cout<<lauf->getSchaltwerkElement()->getName()<<endl;
 				cout << "Anzahl Eingaenge laut Bibliothek : "<< lauf->getSchaltwerkElement()->getTyp()->getEingaenge() << endl;
 				cout << "Anzahl Eingaenge laut Schaltwerk : "<< anzahlVorgaenger << endl << endl;
-
+				system("pause");
+				exit(0);
 			}
 
 

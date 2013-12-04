@@ -41,6 +41,7 @@ bool Faktoren::berechneSpannungFaktor( double spg ) {
 		return true;
 	}
 	cout << "ERR: Die angegebene Spannung liegt nicht innerhalb der vorgegebenen Grenzen!" << endl;
+	system("pause");
 	return false;
 }
 
@@ -58,6 +59,7 @@ bool Faktoren::berechneTemperaturFaktor( double temp ) {
 		return true;
 	}
 	cout << "ERR: Die angegebene Temperatur liegt nicht innerhalb der vorgegebenen Grenzen!" << endl;
+	system("pause");
 	return false;
 }
 
@@ -78,6 +80,7 @@ bool Faktoren::berechneProzessFaktor( short prz ) {
 		}
 	}
 	cout << "ERR: Der angegebene Prozess liegt nicht innerhalb der vorgegebenen Grenzen!" << endl;
+	system("pause");
 	return false;
 }
 
@@ -88,7 +91,7 @@ berechneFaktor findet in einer Xx2-Matrix den zu <value> gehörenden Wert. Falls 
 double Faktoren::berechneFaktor( double value, double arr[][2], unsigned int laenge ) {
 	double r;
 	for( unsigned int i = 0; i < laenge; i++ ) {
-		if(( arr[i][0] <= value ) && ( value < arr[i + 1][0] )) {
+		if(( arr[i][0] <= value ) && ( value <= arr[i + 1][0] )) {
 			r = interpolation( value, arr[i][0], arr[i + 1][0], arr[i][1], arr[i + 1][1] );
 		}
 	}
@@ -148,7 +151,11 @@ Gibt false zurück, falls die Spannung nicht in definierten Grenzen liegt.
 
 bool Faktoren::setSpannung( double spannung ) {
 	this->spannung = spannung;
-	return berechneSpannungFaktor( this->spannung );
+	if(berechneSpannungFaktor( this->spannung )){
+		return true;
+	}
+	this->spannung = 0;
+	return false;
 }
 
 
@@ -159,7 +166,11 @@ Gibt false zurück, falls die Temperatur nicht in definierten Grenzen liegt.
 
 bool Faktoren::setTemperatur( double temperatur ) {
 	this->temperatur = temperatur;
-	return berechneTemperaturFaktor( this->temperatur );
+	if(berechneTemperaturFaktor( this->temperatur )){
+		return true;
+	}
+	this->temperatur = 0;
+	return false;
 }
 
 /*
@@ -169,7 +180,11 @@ Gibt false zurück, falls der Prozess nicht existiert.
 
 bool Faktoren::setProzess( short prozess ) {
 	this->prozess = prozess;
-	return berechneProzessFaktor( this->prozess );
+	if( berechneProzessFaktor( this->prozess)){
+		return true;
+	}
+	prozess = 0;
+	return false;
 }
 
 /*

@@ -95,7 +95,7 @@ void LaufzeitAnalysator::dfs(ListenElement* s) {
 
 bool LaufzeitAnalysator::zyklensuche(SchaltwerkElement* v)
 {
-	for(SchaltwerkElement* s= DFS_Zwischenspeicher[v].VaterElement; !(s->getIsEingangsElement()); s = DFS_Zwischenspeicher[s].VaterElement) {
+	for(SchaltwerkElement* s= DFS_Zwischenspeicher[v].VaterElement; s!=NULL; s = DFS_Zwischenspeicher[s].VaterElement) {
 		if ( v == s ){
 			return true;
 		}
@@ -121,7 +121,7 @@ void LaufzeitAnalysator::reset(void)
 }
 
 
-bool LaufzeitAnalysator::analyse(void)
+bool LaufzeitAnalysator::analyse(long sollFrequenz)
 {
 	berechnungLaufzeitEinzelgatter();
 	for(ListenElement* l = startElement; l!=NULL; l=l->getNextListenElement()) {
@@ -136,8 +136,20 @@ bool LaufzeitAnalysator::analyse(void)
 	cout << ausgangspfad << endl;
 	cout << "Maximale Laufzeit der Pfade im Ausgangsschaltnetz: " << laufzeitAusgangspfad << " ps" << endl << endl;
 	cout << "----------------------------------------" << endl;
-	frequenz = 1/(laufzeitUebergangspfad+26)*1000000; // Setuptime einlesen!!
+	short setupt;
+	for(ListenElement* i =startElement; i!=NULL; i= i->getNextListenElement()){
+		if ( i->getSchaltwerkElement()->getTyp()->getIsFlipflop()){
+			setupt = ((Flipflop*)i->getSchaltwerkElement()->getTyp())->getSetupTime();
+		}
+	}
+
+	frequenz = 1/(laufzeitUebergangspfad+setupt)*1000000; 
 	cout << "Die maximal zulaessige Frequenz fuer das Schaltnetz/-werk betraegt: " << frequenz << "MHz" << endl;
+	if (sollFrequenz * 0.000001 > frequenz){
+		cout<< "Bedingung fuer die Taktfrequenz vom Schaltnetz/-werk ist nicht erfuellt! "<<endl;
+		cout<< "Die Taktfrequenz " << sollFrequenz * 0.000001 << " MHz ist groesser als die maximale Frequenz! " <<endl;
+	}
+	cout << "----------------------------------------" << endl;
 	system("pause");
 
 	return false;

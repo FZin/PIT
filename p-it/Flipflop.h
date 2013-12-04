@@ -4,48 +4,43 @@
 #include "gattertyp.h"
 
 //Initialisierung der Klasse Flipflop als Kindklasse von Klasse GatterTyp
-class Flipflop :        
-	public GatterTyp
-{
+
+class Flipflop :
+public GatterTyp {
 private:
-	short setupTime;
-	short holdTime;
-	short lastKapazitaetClock;
+    short setupTime;
+    short holdTime;
+    short lastKapazitaetClock;
 public:
-	Flipflop(void);
-	~Flipflop(void);
-	bool getIsFlipflop();
+    Flipflop(void);
+    ~Flipflop(void);
+    bool getIsFlipflop();
 
-	//Inline get- und set-Methoden
-	short getSetupTime(void)
-	{
-		return setupTime;
-	}
+    //Inline get- und set-Methoden
 
-	short getHoldTime(void)
-	{
-		return holdTime;
-	}
+    short getSetupTime(void) {
+        return setupTime;
+    }
 
-	short getLastKapazitaetClock(void)
-	{
-		return lastKapazitaetClock;
-	}
+    short getHoldTime(void) {
+        return holdTime;
+    }
 
-	void setSetupTime(short st)
-	{
-		setupTime = st;
-	}
+    short getLastKapazitaetClock(void) {
+        return lastKapazitaetClock;
+    }
 
-	void setHoldTime(short ht)
-	{
-		holdTime = ht;
-	}
+    void setSetupTime(short st) {
+        setupTime = st;
+    }
 
-	void setLastKapazitaetClock(short lkc)
-	{
-		lastKapazitaetClock = lkc;
-	}
+    void setHoldTime(short ht) {
+        holdTime = ht;
+    }
+
+    void setLastKapazitaetClock(short lkc) {
+        lastKapazitaetClock = lkc;
+    }
 };
 #endif
 

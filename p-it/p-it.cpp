@@ -6,14 +6,11 @@
 
 #include "Menue.h"
 
+int main() {
+    Menue meinMenue;
+    meinMenue.start();
 
 
-int main()
-{
-	Menue meinMenue;
-	meinMenue.start();
-
-
-	return 0;
+    return 0;
 }
 

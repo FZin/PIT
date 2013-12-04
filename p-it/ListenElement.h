@@ -6,18 +6,29 @@
 
 #include "SchaltwerkElement.h"
 
-class ListenElement
-{
+class ListenElement {
 private:
-	SchaltwerkElement* schaltwerkElement;
-	ListenElement* next;
+    SchaltwerkElement* schaltwerkElement;
+    ListenElement* next;
 
 public:
-	ListenElement();
-	~ListenElement();
-	SchaltwerkElement* getSchaltwerkElement() { return schaltwerkElement;};
-	ListenElement* getNextListenElement() {return next; };
-	void setSchaltwerkElement( SchaltwerkElement* schaltwerEl ) { schaltwerkElement = schaltwerEl; }; 
-	void setNextElement( ListenElement* nextEl ) { next =nextEl; };
+    ListenElement();
+    ~ListenElement();
+
+    SchaltwerkElement* getSchaltwerkElement() {
+        return schaltwerkElement;
+    };
+
+    ListenElement* getNextListenElement() {
+        return next;
+    };
+
+    void setSchaltwerkElement(SchaltwerkElement* schaltwerEl) {
+        schaltwerkElement = schaltwerEl;
+    };
+
+    void setNextElement(ListenElement* nextEl) {
+        next = nextEl;
+    };
 };
 #endif

@@ -12,23 +12,34 @@
 using namespace std;
 
 class SignalListeErzeuger {
-
 private:
-	Signal* signale;
-	short anzahlSignale;
-	string datei;
-	long frequenz;
+    Signal* signale;
+    short anzahlSignale;
+    string datei;
+    long frequenz;
 
 public:
-	void setPfad(string pfad);
-	void ausgabeSchaltnetzdatei();
-	void ausgabeSignale();
-	string getdatei() {return datei; };
-	SignalListeErzeuger();
-	~SignalListeErzeuger();
-	Signal* getSignale() {return signale;};
-	short getAnzahlSignale(){ return anzahlSignale;};
-	long getFrequenz(){return frequenz;};
+    void setPfad(string pfad);
+    void ausgabeSchaltnetzdatei();
+    void ausgabeSignale();
+
+    string getdatei() {
+        return datei;
+    };
+    SignalListeErzeuger();
+    ~SignalListeErzeuger();
+
+    Signal* getSignale() {
+        return signale;
+    };
+
+    short getAnzahlSignale() {
+        return anzahlSignale;
+    };
+
+    long getFrequenz() {
+        return frequenz;
+    };
 
 };
 #endif

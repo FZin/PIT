@@ -8,22 +8,20 @@
 #include "ListenElement.h"
 #include "Signal.h"
 
-
-class GraphErzeuger
-{
+class GraphErzeuger {
 private:
-	Bibliothek* bibliothek;
-	ListenElement* startElement;
-	ListenElement* endElement;
-	Signal* signale;
-	short anzahlSignale;
+    Bibliothek* bibliothek;
+    ListenElement* startElement;
+    ListenElement* endElement;
+    Signal* signale;
+    short anzahlSignale;
 
 public:
-	GraphErzeuger();
-	~GraphErzeuger();
-	void graphBau( Bibliothek* bib, Signal* sig, short anzahlSig );
-	void ausgabeGraphenstruktur();
-	ListenElement* getStartElement(void);
+    GraphErzeuger();
+    ~GraphErzeuger();
+    void graphBau(Bibliothek* bib, Signal* sig, short anzahlSig);
+    void ausgabeGraphenstruktur();
+    ListenElement* getStartElement(void);
 };
 #endif
 

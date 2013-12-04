@@ -5,69 +5,59 @@
 
 using namespace std;
 
-class GatterTyp
-{
+class GatterTyp {
 protected:
-	string name;
-	double grundlaufzeit;
-	short lastFaktor;
-	short lastKapazitaet;
-	short eingaenge;
+    string name;
+    double grundlaufzeit;
+    short lastFaktor;
+    short lastKapazitaet;
+    short eingaenge;
 public:
-	GatterTyp(void);
-	~GatterTyp(void);
-	virtual bool getIsFlipflop(void);
+    GatterTyp(void);
+    ~GatterTyp(void);
+    virtual bool getIsFlipflop(void);
 
-	//Inline get- und set-Methoden
-	string getName(void)
-	{
-		return name;
-	}
+    //Inline get- und set-Methoden
 
-	double getGrundlaufzeit(void)
-	{
-		return grundlaufzeit;
-	}
+    string getName(void) {
+        return name;
+    }
 
-	short getLastFaktor(void)
-	{
-		return lastFaktor;
-	}
+    double getGrundlaufzeit(void) {
+        return grundlaufzeit;
+    }
 
-	short getLastKapazitaet(void)
-	{
-		return lastKapazitaet;
-	}
+    short getLastFaktor(void) {
+        return lastFaktor;
+    }
 
-	short getEingaenge(void)
-	{
-		return eingaenge;
-	}
+    short getLastKapazitaet(void) {
+        return lastKapazitaet;
+    }
 
-	void setName(string n)
-	{
-		name = n;
-	}
+    short getEingaenge(void) {
+        return eingaenge;
+    }
 
-	void setGrundLaufzeit(double gl)
-	{
-		grundlaufzeit = gl;
-	}
+    void setName(string n) {
+        name = n;
+    }
 
-	void setLastKapazitaet(short lk)
-	{
-		lastKapazitaet = lk;
-	}
+    void setGrundLaufzeit(double gl) {
+        grundlaufzeit = gl;
+    }
 
-	void setLastFaktor(short lf)
-	{
-		lastFaktor = lf;
-	}
+    void setLastKapazitaet(short lk) {
+        lastKapazitaet = lk;
+    }
 
-	void setEingaenge(short ei)
-	{
-		eingaenge = ei;
-	}
+    void setLastFaktor(short lf) {
+        lastFaktor = lf;
+    }
+
+    void setEingaenge(short ei) {
+        eingaenge = ei;
+    }
 };
 #endif
 

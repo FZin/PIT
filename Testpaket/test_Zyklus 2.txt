@@ -1,0 +1,18 @@
+// Diese Schaltnetzdatei dient zum Überprüfen,
+// ob das Programm einen Zyklus erkennt. 
+
+ARCHITECTURE zyklus2 OF Informationstechnik IS
+
+ENTITY
+INPUT s001;
+OUTPUT s006;
+SIGNALS s002,s003,s004,s005;
+CLOCK clk, 1500 MHz;
+
+BEGIN
+g001:inv1a(s001,s002);
+g002:and2(s002,s005,s003);
+g003:dff(s002,clk,s004);
+g004:xor2(s003,s004,s005);
+g005:inv1a(s005,s006);
+END

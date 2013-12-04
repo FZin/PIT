@@ -1,0 +1,16 @@
+// Diese Schaltnetzdatei dient zum Überprüfen,
+// ob das Programm einen unbenuztes Signal erkennt. 
+
+ARCHITECTURE unbenutztessignal OF Informationstechnik IS
+
+ENTITY
+INPUT s001,s002;
+OUTPUT s006;
+SIGNALS s003,s004,s005;
+CLOCK clk, 1500 MHz;
+
+BEGIN
+g001:and2(s001,s002,s003);
+g002:dff(s003,clk,s004);
+g003:xor2(s004,s002,s006);
+END

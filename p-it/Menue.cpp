@@ -1,6 +1,6 @@
 
 #include "Menue.h"
-#include <cstdlib>
+
 
 
 
@@ -176,8 +176,8 @@ void Menue::bibliothekMenue(){
 		cout<<"Bitte geben Sie den gewuenschten Pfad ein ('EXIT' zum abbrechen):"<<endl;
 		cin.clear();
 		cin.sync();
-		cin>>pfad;
-		
+		//cin>>pfad;
+		getline(cin, pfad);
 		if(pfad != "EXIT" && pfad != "exit" && pfad != "Exit") {
 			erfolgreich = meineBibliothek.pfadEinlesen(pfad);
 			if(erfolgreich == false ) { 
@@ -229,7 +229,8 @@ void Menue::schaltwerkMenue(){
 		cout<<"Bitte geben Sie den gewuenschten Pfad ein ('EXIT' zum abbrechen):"<<endl;
 		cin.clear();
 		cin.sync();
-		cin>>pfad;
+		//cin>>pfad;
+		getline(cin, pfad);
 		//Pfad der Schaltwerkelement
 		if(pfad != "EXIT" && pfad != "exit" && pfad != "Exit") {
 			meinSignalListeErzeuger.setPfad(pfad);

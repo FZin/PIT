@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <cstdlib>
 
 #include "SignalListeErzeuger.h"
 #include "LaufzeitAnalysator.h"

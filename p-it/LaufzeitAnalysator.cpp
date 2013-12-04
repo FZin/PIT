@@ -39,10 +39,8 @@ void LaufzeitAnalysator::berechnungLaufzeitEinzelgatter(void)
 		double przFaktor;
 		faktoren->getFaktoren(spgFaktor, tmpFaktor, przFaktor);  //Kv, Kp, Kt aus Klasse Faktoren holen
 		node->getSchaltwerkElement()->setLaufzeitEinzelgatter((node->getSchaltwerkElement()->getTyp()->getGrundlaufzeit() + node->getSchaltwerkElement()->getTyp()->getLastFaktor() * c_last * 0.001) * spgFaktor * tmpFaktor * przFaktor); //Formel umsetzen (auf Einheiten achten!)
-		//cout << node->getSchaltwerkElement()->getName() << ":" << node->getSchaltwerkElement()->getLaufzeitEinzelgatter() << endl;
-		cout << node->getSchaltwerkElement()->getName() << ":" << node->getSchaltwerkElement()->getTyp()->getLastKapazitaet() << endl;
 	}
-	system("pause");
+	//system("pause");
 }
 
 
@@ -106,8 +104,9 @@ bool LaufzeitAnalysator::zyklensuche(SchaltwerkElement* v)
 
 void LaufzeitAnalysator::fehlerbehandlung(void)
 {
-	cout << "FEHLER!" << endl;
+	cout << "Es wurde ein Zyklus gefunden!" << endl;
 	system("pause");
+	exit(1);
 }
 
 

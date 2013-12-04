@@ -1,6 +1,7 @@
 #ifndef LAUFZEITANALYSATOR_H
 #define LAUFZEITANALYSATOR_H
 
+#include <cstdlib>
 #include "Faktoren.h"
 #include "Bibliothek.h"
 #include "SchaltwerkElement.h"

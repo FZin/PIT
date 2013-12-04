@@ -14,6 +14,12 @@ Faktoren::Faktoren() {
 	temperaturFaktor = 0.0;
 	prozessFaktor = 0.0;
 	debugVar = false;
+	try{ debugVar = !( InfoFromItivDevice());
+	}catch(int e){
+		cout << "Das Itiv-Device wurde nicht erkannt: Starte Programm im Debugmodus" << endl;
+		system("pause");
+		debugVar = true;
+	}
 	//debugVar = !( InfoFromItivDevice()); //Auskommentiert, damit sich das Programm ohne ITIVDevice ausführen lässt. Anderenfalls müssen sowohl ITIVDevice als auch VS als Admin gestartet werden.
 }
 
@@ -173,16 +179,18 @@ Misst mit Hilfe des ITIVDevices Spannung, Temperatur und Prozess. VS und das Dev
 bool Faktoren::InfoFromItivDevice() {
 	ItivDev_Config* DevPtr;
 	DevPtr = ItivDev_GetConfigByName( "Global\\ITIV_WindowsDevice" );
-	//volatile uint32_t* baseAddr = (uint32_t*)DevPtr->BaseAddress; //Caste die BaseAdresse als uint32 um den gesamten Speicherbereich ansprechen zu können
-	//volatile uint32_t* reg_ctrl = baseAddr;
-	//volatile uint32_t* reg_stat = baseAddr + 1;
-	//volatile uint32_t* reg_data = baseAddr + 2;
 	double neuerWert;
 	int neuerInt;
 	bool err = false;
 	for( int i = 1; i < 4; i++ ) {
 		err = false;
 		while( !err ) {
+			try{
+				*( int* )( DevPtr->BaseAddress + CTRL_REG + 1 ) |= ~( 1 << 0 );
+			}catch(...){
+				throw(1);
+				break;
+			}
 			*( int* )( DevPtr->BaseAddress + CTRL_REG + 1 ) |= ~( 1 << 0 );
 			while( !( *( int* )( DevPtr->BaseAddress + STAT_REG + 3) & 0x01 ));
 			*( int* )( DevPtr->BaseAddress + CTRL_REG ) = i;
@@ -212,6 +220,8 @@ bool Faktoren::InfoFromItivDevice() {
 			}
 		}
 	}
-	ItivDev_ReleaseDevice( DevPtr );	
+	try{
+		ItivDev_ReleaseDevice( DevPtr );
+	}catch(...){}
 	return true;
 }

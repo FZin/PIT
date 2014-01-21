@@ -12,14 +12,7 @@ Faktoren::Faktoren() {
     spannungFaktor = 0.0;
     temperaturFaktor = 0.0;
     prozessFaktor = 0.0;
-    debugVar = false;
-    try {
-        debugVar = !(InfoFromItivDevice());
-    } catch (int e) {
-        cout << "Das Itiv-Device wurde nicht erkannt: Starte Programm im Debugmodus" << endl;
-        system("pause");
-        debugVar = true;
-    }
+    debugVar = true;
     //debugVar = !( InfoFromItivDevice()); //Auskommentiert, damit sich das Programm ohne ITIVDevice ausführen lässt. Anderenfalls müssen sowohl ITIVDevice als auch VS als Admin gestartet werden.
 }
 
@@ -218,12 +211,7 @@ bool Faktoren::InfoFromItivDevice() {
     for (int i = 1; i < 4; i++) {
         err = false;
         while (!err) {
-            try {
-                *(int*) (DevPtr->BaseAddress + CTRL_REG + 1) |= ~(1 << 0);
-            } catch (...) {
-                throw (1);
-                break;
-            }
+            *(int*) (DevPtr->BaseAddress + CTRL_REG + 1) |= ~(1 << 0);
             *(int*) (DevPtr->BaseAddress + CTRL_REG + 1) |= ~(1 << 0);
             while (!(*(int*) (DevPtr->BaseAddress + STAT_REG + 3) & 0x01));
             *(int*) (DevPtr->BaseAddress + CTRL_REG) = i;
@@ -253,9 +241,6 @@ bool Faktoren::InfoFromItivDevice() {
             }
         }
     }
-    try {
-        ItivDev_ReleaseDevice(DevPtr);
-    } catch (...) {
-    }
+    ItivDev_ReleaseDevice(DevPtr);
     return true;
 }

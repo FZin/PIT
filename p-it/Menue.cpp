@@ -129,12 +129,9 @@ void Menue::faktorenMenue() {
             break;
         case 5:
             if (meineFaktoren.debugVar) {
-                meineFaktoren.debugVar = false;
+                meineFaktoren.debugVar = !(meineFaktoren.InfoFromItivDevice());
             } else {
                 meineFaktoren.debugVar = true;
-                meineFaktoren.setProzess(1);
-                meineFaktoren.setSpannung(1.2);
-                meineFaktoren.setTemperatur(55); //DEBUG
             }
             break;
         case 6:
@@ -228,7 +225,7 @@ void Menue::schaltwerkMenue() {
             cin.sync();
             //cin>>pfad;
             getline(cin, pfad);
-            //Pfad der Schaltwerkelement
+            //Pfad der Schaltwerkelementdatei
             if (pfad != "EXIT" && pfad != "exit" && pfad != "Exit") {
                 meinSignalListeErzeuger.setPfad(pfad);
             }
@@ -267,10 +264,6 @@ void Menue::analyse() {
     meinLaufzeitanalysator.reset();
     meinLaufzeitanalysator.init(&meineFaktoren, meinGraphErzeuger.getStartElement());
     bool egal = meinLaufzeitanalysator.analyse(meinSignalListeErzeuger.getFrequenz());
-    //meinLaufzeitanalysator.berechnungLaufzeitEinzelgatter();
-    //meinLaufzeitanalysator.dfs(meinGraphErzeuger.getStartElement());
-    //Aufruf LaufzeitAnalysator
-    //system("pause");
     start();
 
 };

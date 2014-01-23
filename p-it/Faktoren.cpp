@@ -208,12 +208,11 @@ bool Faktoren::InfoFromItivDevice() {
     double neuerWert;
     int neuerInt;
     bool err = false;
-    for (int i = 1; i < 4; i++) {
+    for (int i = 1; i < 4; i++) { //Diese Schleife wird 3 mal durchlaufen um nacheinander Spannung, Temperatur und Prozess auszulesen
         err = false;
         while (!err) {
-            *(int*) (DevPtr->BaseAddress + CTRL_REG + 1) |= ~(1 << 0);
-            *(int*) (DevPtr->BaseAddress + CTRL_REG + 1) |= ~(1 << 0);
-            while (!(*(int*) (DevPtr->BaseAddress + STAT_REG + 3) & 0x01));
+            *(int*) (DevPtr->BaseAddress + CTRL_REG + 1) &= ~(1 << 0); // (1 << 0) ergibt eine 1, Negation derselben eine 0, die dann in das 2. Byte des CTRL-Registers geschrieben wird
+            while (!(*(int*) (DevPtr->BaseAddress + STAT_REG + 3) & 0x01)); //Hier wird nur das erste Bit des 4. Bytes des STAT-Registers ausgewertet
             *(int*) (DevPtr->BaseAddress + CTRL_REG) = i;
             *(int*) (DevPtr->BaseAddress + CTRL_REG + 1) |= (1 << 0);
             while (*(int*) (DevPtr->BaseAddress + STAT_REG + 1) & 0x01);
